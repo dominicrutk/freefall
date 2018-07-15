@@ -3,11 +3,11 @@ package com.taugames.freefall;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Game extends com.badlogic.gdx.Game {
-	private SpriteBatch batch;
+	private SpriteBatch spriteBatch;
 	
 	@Override
 	public void create() {
-		batch = new SpriteBatch();
+		spriteBatch = new SpriteBatch();
 		this.setScreen(new MainMenu(this));
 	}
 
@@ -18,11 +18,11 @@ public class Game extends com.badlogic.gdx.Game {
 	
 	@Override
 	public void dispose() {
-		batch.dispose();
+		spriteBatch.dispose();
 		this.getScreen().dispose();
 	}
 
-    SpriteBatch getBatch() {
-        return batch;
+    public SpriteBatch getSpriteBatch() {
+        return spriteBatch;
     }
 }
