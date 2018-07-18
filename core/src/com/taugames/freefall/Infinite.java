@@ -17,10 +17,13 @@ public class Infinite implements Screen {
         this.game = game;
         touchInputListener = new TouchInputListener();
         Gdx.input.setInputProcessor(touchInputListener);
+
         TextureRegion parachutistTexture = new TextureRegion(new Texture(Gdx.files.internal("parachutist.png")));
-        float parachutistX = Gdx.graphics.getWidth() / 2f - 64;//parachutistTexture.getRegionWidth() / 2f;
-        float parachutistY = Gdx.graphics.getHeight() / 2f - 64;//parachutistTexture.getRegionHeight() / 2f;
-        parachutist = new Parachutist(parachutistTexture, parachutistX, parachutistY);
+        float parachutistWidth = Gdx.graphics.getWidth() / 8f;
+        float parachutistHeight = parachutistWidth;
+        float parachutistX = Gdx.graphics.getWidth() / 2f - parachutistWidth / 2f;
+        float parachutistY = Gdx.graphics.getHeight() / 2f - parachutistHeight / 2f;
+        parachutist = new Parachutist(parachutistTexture, parachutistX, parachutistY, parachutistWidth, parachutistHeight);
     }
 
     @Override
@@ -32,12 +35,14 @@ public class Infinite implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(135f / 255, 206f / 255, 250f / 255, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         TouchInputListener.TouchInputState touchInputState = touchInputListener.getInputState();
         if (touchInputState == TouchInputListener.TouchInputState.LEFT) {
-            parachutist.setX(parachutist.getX() - 10);
+            parachutist.moveLeft();
         } else if (touchInputState == TouchInputListener.TouchInputState.RIGHT) {
-            parachutist.setX(parachutist.getX() + 10);
+            parachutist.moveRight();
         }
+
         SpriteBatch spriteBatch = game.getSpriteBatch();
         spriteBatch.begin();
         parachutist.draw(spriteBatch);

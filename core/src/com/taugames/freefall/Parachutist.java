@@ -1,5 +1,6 @@
 package com.taugames.freefall;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Polygon;
@@ -10,6 +11,7 @@ public class Parachutist {
     private float y;
     private float width;
     private float height;
+    private static final float VELOCITY = 15;
 
     public Parachutist(TextureRegion texture, float x, float y, float width, float height) {
         this.texture = texture;
@@ -19,15 +21,33 @@ public class Parachutist {
         this.height = height;
     }
 
-    public Parachutist(TextureRegion texture, float x, float y) {
-        this(texture, x, y, 128f, 128f);
-    }
-
     public void draw(SpriteBatch spriteBatch) {
         if (!spriteBatch.isDrawing()) {
             spriteBatch.begin();
         }
         spriteBatch.draw(texture, x, y, width, height);
+    }
+
+    public void moveRight() {
+        incrementX(VELOCITY);
+    }
+
+    public void moveLeft() {
+        decrementX(VELOCITY);
+    }
+
+    public void incrementX(float x) {
+        this.x += x;
+        if (this.x + width / 2 > Gdx.graphics.getWidth()) {
+            this.x = Gdx.graphics.getWidth() - width / 2;
+        }
+    }
+
+    public void decrementX(float x) {
+        this.x -= x;
+        if (this.x + width / 2 < 0) {
+            this.x = -1 * width / 2;
+        }
     }
 
     public void setX(float x) {
