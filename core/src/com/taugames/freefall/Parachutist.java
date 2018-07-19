@@ -1,19 +1,19 @@
 package com.taugames.freefall;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Polygon;
 
 public class Parachutist {
-    private TextureRegion texture;
+    private Texture texture;
     private float x;
     private float y;
     private float width;
     private float height;
     private static final float VELOCITY = 15;
 
-    public Parachutist(TextureRegion texture, float x, float y, float width, float height) {
+    public Parachutist(Texture texture, float x, float y, float width, float height) {
         this.texture = texture;
         this.x = x;
         this.y = y;

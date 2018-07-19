@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.taugames.freefall.input.TouchInputListener;
 
 public class Infinite implements Screen {
@@ -18,7 +17,7 @@ public class Infinite implements Screen {
         touchInputListener = new TouchInputListener();
         Gdx.input.setInputProcessor(touchInputListener);
 
-        TextureRegion parachutistTexture = new TextureRegion(new Texture(Gdx.files.internal("parachutist.png")));
+        Texture parachutistTexture = game.getAssetManager().get("img/parachutist.png", Texture.class);
         float parachutistWidth = Gdx.graphics.getWidth() / 8f;
         float parachutistHeight = parachutistWidth;
         float parachutistX = Gdx.graphics.getWidth() / 2f - parachutistWidth / 2f;
