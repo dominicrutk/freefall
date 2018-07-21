@@ -29,6 +29,9 @@ public class Game extends com.badlogic.gdx.Game {
 
     private void loadAssets() {
         assetManager.load("img/parachutist.png", Texture.class);
+        assetManager.load("img/lasers/laserBody.png", Texture.class);
+        assetManager.load("img/lasers/laserEndLeft.png", Texture.class);
+        assetManager.load("img/lasers/laserEndRight.png", Texture.class);
         assetManager.finishLoading();
     }
 

@@ -1,14 +1,25 @@
 package com.taugames.freefall.obstacles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.taugames.freefall.Game;
 import com.taugames.freefall.Parachutist;
 
 public abstract class Obstacle {
+    protected final Game game;
     protected float x;
     protected float y;
     protected float width;
     protected float height;
-    protected float velocity = 0;
+    protected float velocity;
+
+    public Obstacle(Game game, float x, float y, float width, float height, float velocity) {
+        this.game = game;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.velocity = velocity;
+    }
 
     /**
      * Determines if the parachutist was killed by the obstacle.
@@ -27,9 +38,13 @@ public abstract class Obstacle {
 
     /**
      * Draws the obstacle on the screen.
-     * @param batch The SpriteBatch to draw the obstacle texture.
+     * @param spriteBatch The SpriteBatch to draw the obstacle texture.
      */
-    public abstract void draw(SpriteBatch batch);
+    public abstract void draw(SpriteBatch spriteBatch);
+
+    public void move() {
+        y += velocity;
+    }
 
     public void setX(float x) {
         this.x = x;
