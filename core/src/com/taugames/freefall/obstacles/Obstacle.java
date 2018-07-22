@@ -30,18 +30,20 @@ public abstract class Obstacle {
     public abstract boolean kills(Parachutist parachutist);
 
     /**
+     * Draws the obstacle on the screen.
+     * @param spriteBatch The SpriteBatch to draw the obstacle texture.
+     */
+    public abstract void draw(SpriteBatch spriteBatch);
+
+    /**
      * Determines if the parachutist passed the obstacle.
      * If he/she did, then the score should be increased.
      * @param parachutist The parachutist.
      * @return Whether or not the parachutist passed the obstacle safely.
      */
-    public abstract boolean wasPassedBy(Parachutist parachutist);
-
-    /**
-     * Draws the obstacle on the screen.
-     * @param spriteBatch The SpriteBatch to draw the obstacle texture.
-     */
-    public abstract void draw(SpriteBatch spriteBatch);
+    public boolean wasPassedBy(Parachutist parachutist) {
+        return parachutist.getY() + parachutist.getHeight() / 2f <= y + height / 2;
+    }
 
     public void move() {
         y += velocity;

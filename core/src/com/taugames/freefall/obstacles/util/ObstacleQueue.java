@@ -61,7 +61,7 @@ public class ObstacleQueue {
     public int pointsToAdd(Parachutist parachutist) {
         int pointsToAdd = 0;
         for (Obstacle obstacle : obstacles) {
-            if (obstacle.wasPassedBy(parachutist) && obstacle.isScored()) {
+            if (obstacle.wasPassedBy(parachutist) && !obstacle.isScored()) {
                 pointsToAdd++;
                 obstacle.score();
             }

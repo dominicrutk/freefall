@@ -24,11 +24,6 @@ public class SplitLaser extends Obstacle {
     }
 
     @Override
-    public boolean wasPassedBy(Parachutist parachutist) {
-        return false;
-    }
-
-    @Override
     public void draw(SpriteBatch spriteBatch) {
         if (!spriteBatch.isDrawing()) {
             spriteBatch.begin();

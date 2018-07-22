@@ -15,6 +15,7 @@ public class Infinite implements Screen {
     private Parachutist parachutist;
     private RandomObstacleGenerator obstacleGenerator;
     private ObstacleQueue obstacleQueue;
+    private int score;
 
     public Infinite(Game game) {
         this.game = game;
@@ -34,6 +35,8 @@ public class Infinite implements Screen {
         obstacleGenerator = new RandomObstacleGenerator(game, velocity);
 
         obstacleQueue = new ObstacleQueue(obstacleGenerator, obstacleGap);
+
+        score = 0;
     }
 
     @Override
@@ -54,6 +57,8 @@ public class Infinite implements Screen {
         }
 
         obstacleQueue.updateObstacles();
+
+        score += obstacleQueue.pointsToAdd(parachutist);
 
         SpriteBatch spriteBatch = game.getSpriteBatch();
         spriteBatch.begin();
