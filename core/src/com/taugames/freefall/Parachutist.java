@@ -11,7 +11,7 @@ public class Parachutist {
     private float y;
     private float width;
     private float height;
-    private static final float VELOCITY = 15;
+    private static final float VELOCITY = 16;
 
     public Parachutist(Texture texture, float x, float y, float width, float height) {
         this.texture = texture;

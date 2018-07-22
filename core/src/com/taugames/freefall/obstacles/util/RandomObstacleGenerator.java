@@ -1,7 +1,8 @@
-package com.taugames.freefall.obstacles;
+package com.taugames.freefall.obstacles.util;
 
 import com.badlogic.gdx.Gdx;
 import com.taugames.freefall.Game;
+import com.taugames.freefall.obstacles.Obstacle;
 import com.taugames.freefall.obstacles.lasers.DoubleLaser;
 import com.taugames.freefall.obstacles.lasers.SingleLaser;
 import com.taugames.freefall.obstacles.lasers.SplitLaser;
@@ -16,7 +17,10 @@ public class RandomObstacleGenerator {
     }
 
     public Obstacle getObstacle(float y) {
-        return Math.random() >= 0.5 ? getSingleLaser(y) : getDoubleLaser(y);
+        double random = Math.random();
+        if (random < 1f / 3) return getSingleLaser(y);
+        else if (random < 2f / 3) return getDoubleLaser(y);
+        else return getSplitLaser(y);
     }
 
     public SingleLaser getSingleLaser(float y) {
