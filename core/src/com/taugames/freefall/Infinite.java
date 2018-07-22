@@ -5,25 +5,38 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.taugames.freefall.input.TouchInputListener;
+import com.taugames.freefall.obstacles.util.ObstacleQueue;
+import com.taugames.freefall.obstacles.util.RandomObstacleGenerator;
 
 public class Infinite implements Screen {
     private final Game game;
     private TouchInputListener touchInputListener;
     private Parachutist parachutist;
+    private RandomObstacleGenerator obstacleGenerator;
+    private ObstacleQueue obstacleQueue;
+    private int score;
 
     public Infinite(Game game) {
         this.game = game;
+
         touchInputListener = new TouchInputListener();
         Gdx.input.setInputProcessor(touchInputListener);
 
-        TextureRegion parachutistTexture = new TextureRegion(new Texture(Gdx.files.internal("parachutist.png")));
+        Texture parachutistTexture = game.getAssetManager().get("img/parachutist.png", Texture.class);
         float parachutistWidth = Gdx.graphics.getWidth() / 8f;
         float parachutistHeight = parachutistWidth;
         float parachutistX = Gdx.graphics.getWidth() / 2f - parachutistWidth / 2f;
         float parachutistY = Gdx.graphics.getHeight() / 2f - parachutistHeight / 2f;
         parachutist = new Parachutist(parachutistTexture, parachutistX, parachutistY, parachutistWidth, parachutistHeight);
+
+        float obstacleGap = Gdx.graphics.getWidth() / 2f;
+        float velocity = obstacleGap / 90;
+        obstacleGenerator = new RandomObstacleGenerator(game, velocity);
+
+        obstacleQueue = new ObstacleQueue(obstacleGenerator, obstacleGap);
+
+        score = 0;
     }
 
     @Override
@@ -43,8 +56,13 @@ public class Infinite implements Screen {
             parachutist.moveRight();
         }
 
+        obstacleQueue.updateObstacles();
+
+        score += obstacleQueue.pointsToAdd(parachutist);
+
         SpriteBatch spriteBatch = game.getSpriteBatch();
         spriteBatch.begin();
+        obstacleQueue.draw(spriteBatch);
         parachutist.draw(spriteBatch);
         spriteBatch.end();
     }
