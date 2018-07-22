@@ -6,17 +6,18 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.taugames.freefall.input.TouchInputListener;
+import com.taugames.freefall.obstacles.RandomObstacleGenerator;
 import com.taugames.freefall.obstacles.lasers.SingleLaser;
 
 public class Infinite implements Screen {
     private final Game game;
     private TouchInputListener touchInputListener;
     private Parachutist parachutist;
-
-//    private SingleLaser singleLaser;
+    private RandomObstacleGenerator obstacleGenerator;
 
     public Infinite(Game game) {
         this.game = game;
+
         touchInputListener = new TouchInputListener();
         Gdx.input.setInputProcessor(touchInputListener);
 
@@ -26,8 +27,8 @@ public class Infinite implements Screen {
         float parachutistX = Gdx.graphics.getWidth() / 2f - parachutistWidth / 2f;
         float parachutistY = Gdx.graphics.getHeight() / 2f - parachutistHeight / 2f;
         parachutist = new Parachutist(parachutistTexture, parachutistX, parachutistY, parachutistWidth, parachutistHeight);
-//        singleLaser = new SingleLaser(game, SingleLaser.Direction.RIGHT, Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f - parachutistHeight / 8, Gdx.graphics.getWidth() / 2f, parachutistHeight / 4, 0);
-//        singleLaser = new SingleLaser(game, SingleLaser.Direction.LEFT, Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f - parachutistHeight / 8, Gdx.graphics.getWidth() / 2f, parachutistHeight / 4, 0);
+
+        obstacleGenerator = new RandomObstacleGenerator(game, 0);
     }
 
     @Override
@@ -50,7 +51,6 @@ public class Infinite implements Screen {
         SpriteBatch spriteBatch = game.getSpriteBatch();
         spriteBatch.begin();
         parachutist.draw(spriteBatch);
-//        singleLaser.draw(spriteBatch);
         spriteBatch.end();
     }
 
