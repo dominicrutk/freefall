@@ -14,27 +14,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MainMenu implements Screen {
-    private final Game game;
-    private Texture playButton;
-    private Texture settingsButton;
-    private Texture shoppingCartButton;
-    private SpriteBatch batch;
-    private ImageButton playButtonButton;
     private Stage stage;
-    private float playLength = Gdx.graphics.getWidth() / 4f;
 
 
     public MainMenu(final Game game) {
 
-        this.game = game;
-        playButton = game.getAssetManager().get("img/buttons/playButton.png", Texture.class);
-        settingsButton = game.getAssetManager().get("img/buttons/settingsButton.png", Texture.class);
-        shoppingCartButton = game.getAssetManager().get("img/buttons/shoppingCartButton.png", Texture.class);
+
+        float playLength = Gdx.graphics.getWidth() / 4f;
+        float iconLength = Gdx.graphics.getWidth() / 10f;
+        float iconDist = 20 * Gdx.graphics.getWidth() / 1440f;
+
 
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        playButtonButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(playButton)));
+        Texture playButton = game.getAssetManager().get("img/buttons/playButton.png", Texture.class);
+        ImageButton playButtonButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(playButton)));
         playButtonButton.setSize(playLength, playLength);
         playButtonButton.setPosition((Gdx.graphics.getWidth() - playLength) / 2f, (Gdx.graphics.getHeight() - playLength) / 2f);
         playButtonButton.addListener(new ChangeListener() {
@@ -43,10 +38,32 @@ public class MainMenu implements Screen {
                 game.setScreen(new Infinite(game));
             }
         });
-
         stage.addActor(playButtonButton);
 
-        batch = new SpriteBatch();
+        Texture settingsButton = game.getAssetManager().get("img/buttons/settingsButton.png", Texture.class);
+        ImageButton settingsButtonButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(settingsButton)));
+        settingsButtonButton.setSize(iconLength, iconLength);
+        settingsButtonButton.setPosition(Gdx.graphics.getWidth() - iconDist - iconLength, Gdx.graphics.getHeight() - iconDist - iconLength);
+        settingsButtonButton.addListener(new ChangeListener() {
+            @Override
+            public void changed (ChangeEvent event, Actor actor) {
+                Gdx.app.log("TODO", "Settings - Coming soon!");
+            }
+        });
+        stage.addActor(settingsButtonButton);
+
+        Texture shoppingCartButton = game.getAssetManager().get("img/buttons/shoppingCartButton.png", Texture.class);
+        ImageButton shoppingCartButtonButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(shoppingCartButton)));
+        shoppingCartButtonButton.setSize(iconLength, iconLength);
+        shoppingCartButtonButton.setPosition(iconDist, Gdx.graphics.getHeight() - iconDist - iconLength);
+        shoppingCartButtonButton.addListener(new ChangeListener() {
+            @Override
+            public void changed (ChangeEvent event, Actor actor) {
+                Gdx.app.log("TODO", "Shop - Coming soon!");
+            }
+        });
+        stage.addActor(shoppingCartButtonButton);
+
     }
 
     @Override
@@ -60,19 +77,9 @@ public class MainMenu implements Screen {
         Gdx.gl.glClearColor(135f / 255, 206f / 255, 250f / 255, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        float iconLength = Gdx.graphics.getWidth() / 10f;
-
-        float iconDist = 20 * Gdx.graphics.getWidth() / 1440f;
-
         stage.act();
         stage.draw();
 
-        batch.begin();
-
-        batch.draw(settingsButton, Gdx.graphics.getWidth() - iconDist - iconLength, Gdx.graphics.getHeight() - iconDist - iconLength, iconLength, iconLength);
-        batch.draw(shoppingCartButton, iconDist, Gdx.graphics.getHeight() - iconDist - iconLength, iconLength, iconLength);
-
-        batch.end();
     }
 
     @Override
