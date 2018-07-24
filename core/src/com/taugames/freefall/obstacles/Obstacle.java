@@ -1,6 +1,10 @@
 package com.taugames.freefall.obstacles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.EarClippingTriangulator;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ShortArray;
 import com.taugames.freefall.Game;
 import com.taugames.freefall.Parachutist;
 
@@ -95,5 +99,27 @@ public abstract class Obstacle {
 
     public boolean isScored() {
         return scored;
+    }
+
+    // Triangulation for concave polygon collision detection
+    private static EarClippingTriangulator triangulator;
+
+    static {
+        triangulator = new EarClippingTriangulator();
+    }
+
+    // SOURCE: https://stackoverflow.com/a/42319276/7300063
+    protected static Array<Polygon> triangulate(Polygon polygon) {
+        float[] vertices = polygon.getTransformedVertices();
+        ShortArray triangleVertexIndices = triangulator.computeTriangles(vertices);
+        Array<Polygon> triangles = new Array<Polygon>();
+        for (int i = 0; i < triangleVertexIndices.size; i += 3) {
+            triangles.add(new Polygon(new float[] {
+                vertices[triangleVertexIndices.get(i) * 2], vertices[triangleVertexIndices.get(i) * 2 + 1],
+                vertices[triangleVertexIndices.get(i + 1) * 2], vertices[triangleVertexIndices.get(i + 1) * 2 + 1],
+                vertices[triangleVertexIndices.get(i + 2) * 2], vertices[triangleVertexIndices.get(i + 2) * 2 + 1]
+            }));
+        }
+        return triangles;
     }
 }
