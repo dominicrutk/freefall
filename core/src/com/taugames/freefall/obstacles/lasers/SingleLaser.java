@@ -29,46 +29,48 @@ public class SingleLaser extends Obstacle {
     @Override
     public void setModels() {
         models = new Array<Model>();
+        Array<Polygon> polygons = new Array<Polygon>();
         float px = height / 8;
         if (direction == Direction.LEFT) {
-            models.add(new Model(new Polygon(new float[] {
-                0, y + 6 * px,
-                width - 8 * px, y + 6 * px,
-                width - 8 * px, y + 7 * px,
-                width - 6 * px, y + 7 * px,
-                width - 6 * px, y + 8 * px,
-                width - 1 * px, y + 8 * px,
-                width - 1 * px, y + 7 * px,
-                width, y + 7 * px,
-                width, y + 1 * px,
-                width - 1 * px, y + 1 * px,
-                width - 1 * px, y,
-                width - 6 * px, y,
-                width - 6 * px, y + 1 * px,
-                width - 8 * px, y + 1 * px,
-                width - 8 * px, y + 2 * px,
-                0, y + 2 * px
-            })));
+            polygons.add(new Polygon(new float[] {
+                    0, y + 2 * px,
+                    width - 8 * px, y + 2 * px,
+                    width - 8 * px, y + height - 2 * px,
+                    0, y + height - 2 * px
+            }));
+            polygons.add(new Polygon(new float[] {
+                    width - 8 * px, y + 2 * px,
+                    width - 8 * px, y + px,
+                    width - 6 * px, y,
+                    width - px, y,
+                    width, y + px,
+                    width, y + height - px,
+                    width - px, y + height,
+                    width - 6 * px, y + height,
+                    width - 8 * px, y + height - px,
+                    width - 8 * px, y + height - 2 * px
+            }));
         } else {
-            models.add(new Model(new Polygon(new float[] {
-                x + width, y + 6 * px,
-                x + 8 * px, y + 6 * px,
-                x + 8 * px, y + 7 * px,
-                x + 6 * px, y + 7 * px,
-                x + 6 * px, y + 8 * px,
-                x + 1 * px, y + 8 * px,
-                x + 1 * px, y + 7 * px,
-                x, y + 7 * px,
-                x, y + 1 * px,
-                x + 1 * px, y + 1 * px,
-                x + 1 * px, y,
-                x + 6 * px, y,
-                x + 6 * px, y + 1 * px,
-                x + 8 * px, y + 1 * px,
-                x + 8 * px, y + 2 * px,
-                x + width, y + 2 * px
-            })));
+            polygons.add(new Polygon(new float[] {
+                    x + width, y + 2 * px,
+                    x + 8 * px, y + 2 * px,
+                    x + 8 * px, y + height - 2 * px,
+                    x + width, y + height - 2 * px
+            }));
+            polygons.add(new Polygon(new float[] {
+                    x + 8 * px, y + 2 * px,
+                    x + 8 * px, y + px,
+                    x + 6 * px, y,
+                    x + px, y,
+                    x, y + px,
+                    x, y + height - px,
+                    x + px, y + height,
+                    x + 6 * px, y + height,
+                    x + 8 * px, y + height - px,
+                    x + 8 * px, y + height - 2 * px
+            }));
         }
+        models.add(new Model(polygons));
     }
 
     @Override
