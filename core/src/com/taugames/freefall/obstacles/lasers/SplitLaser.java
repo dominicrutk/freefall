@@ -2,6 +2,7 @@ package com.taugames.freefall.obstacles.lasers;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Polygon;
 import com.taugames.freefall.Game;
 import com.taugames.freefall.Parachutist;
 import com.taugames.freefall.obstacles.Obstacle;
@@ -19,8 +20,8 @@ public class SplitLaser extends Obstacle {
     }
 
     @Override
-    public boolean kills(Parachutist parachutist) {
-        return false;
+    public void setModels() {
+
     }
 
     @Override

@@ -3,10 +3,10 @@ package com.taugames.freefall.obstacles.lasers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.utils.Array;
 import com.taugames.freefall.Game;
-import com.taugames.freefall.Parachutist;
+import com.taugames.freefall.Model;
 import com.taugames.freefall.obstacles.Obstacle;
 
 public class SingleLaser extends Obstacle {
@@ -19,6 +19,7 @@ public class SingleLaser extends Obstacle {
         this.direction = direction;
         laserBody = game.getAssetManager().get("img/lasers/laserBody.png", Texture.class);
         laserEnd = game.getAssetManager().get("img/lasers/laserEnd" + (direction == Direction.LEFT ? "Left" : "Right") + ".png", Texture.class);
+        setModels();
     }
 
     public enum Direction {
@@ -26,49 +27,48 @@ public class SingleLaser extends Obstacle {
     }
 
     @Override
-    public boolean kills(Parachutist parachutist) {
-        Polygon model;
+    public void setModels() {
+        models = new Array<Model>();
         float px = height / 8;
         if (direction == Direction.LEFT) {
-            model = new Polygon(new float[] {
-                    0, y + 6 * px,
-                    width - 8 * px, y + 6 * px,
-                    width - 8 * px, y + 7 * px,
-                    width - 6 * px, y + 7 * px,
-                    width - 6 * px, y + 8 * px,
-                    width - 1 * px, y + 8 * px,
-                    width - 1 * px, y + 7 * px,
-                    width, y + 7 * px,
-                    width, y + 1 * px,
-                    width - 1 * px, y + 1 * px,
-                    width - 1 * px, y,
-                    width - 6 * px, y,
-                    width - 6 * px, y + 1 * px,
-                    width - 8 * px, y + 1 * px,
-                    width - 8 * px, y + 2 * px,
-                    0, y + 2 * px
-            });
+            models.add(new Model(new Polygon(new float[] {
+                0, y + 6 * px,
+                width - 8 * px, y + 6 * px,
+                width - 8 * px, y + 7 * px,
+                width - 6 * px, y + 7 * px,
+                width - 6 * px, y + 8 * px,
+                width - 1 * px, y + 8 * px,
+                width - 1 * px, y + 7 * px,
+                width, y + 7 * px,
+                width, y + 1 * px,
+                width - 1 * px, y + 1 * px,
+                width - 1 * px, y,
+                width - 6 * px, y,
+                width - 6 * px, y + 1 * px,
+                width - 8 * px, y + 1 * px,
+                width - 8 * px, y + 2 * px,
+                0, y + 2 * px
+            })));
         } else {
-            model = new Polygon(new float[] {
-                    x + width, y + 6 * px,
-                    x + 8 * px, y + 6 * px,
-                    x + 8 * px, y + 7 * px,
-                    x + 6 * px, y + 7 * px,
-                    x + 6 * px, y + 8 * px,
-                    x + 1 * px, y + 8 * px,
-                    x + 1 * px, y + 7 * px,
-                    x, y + 7 * px,
-                    x, y + 1 * px,
-                    x + 1 * px, y + 1 * px,
-                    x + 1 * px, y,
-                    x + 6 * px, y,
-                    x + 6 * px, y + 1 * px,
-                    x + 8 * px, y + 1 * px,
-                    x + 8 * px, y + 2 * px,
-                    x + width, y + 2 * px
-            });
+            models.add(new Model(new Polygon(new float[] {
+                x + width, y + 6 * px,
+                x + 8 * px, y + 6 * px,
+                x + 8 * px, y + 7 * px,
+                x + 6 * px, y + 7 * px,
+                x + 6 * px, y + 8 * px,
+                x + 1 * px, y + 8 * px,
+                x + 1 * px, y + 7 * px,
+                x, y + 7 * px,
+                x, y + 1 * px,
+                x + 1 * px, y + 1 * px,
+                x + 1 * px, y,
+                x + 6 * px, y,
+                x + 6 * px, y + 1 * px,
+                x + 8 * px, y + 1 * px,
+                x + 8 * px, y + 2 * px,
+                x + width, y + 2 * px
+            })));
         }
-        return Intersector.overlapConvexPolygons(parachutist.getModel(), model);
     }
 
     @Override

@@ -17,10 +17,11 @@ public class RandomObstacleGenerator {
     }
 
     public Obstacle getObstacle(float y) {
-        double random = Math.random();
-        if (random < 1f / 3) return getSingleLaser(y);
-        else if (random < 2f / 3) return getDoubleLaser(y);
-        else return getSplitLaser(y);
+//        double random = Math.random();
+//        if (random < 1f / 3) return getSingleLaser(y);
+//        else if (random < 2f / 3) return getDoubleLaser(y);
+//        else return getSplitLaser(y);
+        return getSingleLaser(y);
     }
 
     public SingleLaser getSingleLaser(float y) {

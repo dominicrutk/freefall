@@ -1,11 +1,11 @@
 package com.taugames.freefall.obstacles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.EarClippingTriangulator;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ShortArray;
 import com.taugames.freefall.Game;
+import com.taugames.freefall.Model;
 import com.taugames.freefall.Parachutist;
 
 public abstract class Obstacle {
@@ -14,6 +14,7 @@ public abstract class Obstacle {
     protected float y;
     protected float width;
     protected float height;
+    protected Array<Model> models;
     private float velocity;
     private boolean scored = false;
 
@@ -27,17 +28,36 @@ public abstract class Obstacle {
     }
 
     /**
-     * Determines if the parachutist was killed by the obstacle.
-     * @param parachutist The parachutist.
-     * @return Whether or not the parachutist collided with the obstacle.
-     */
-    public abstract boolean kills(Parachutist parachutist);
-
-    /**
      * Draws the obstacle on the screen.
      * @param spriteBatch The SpriteBatch to draw the obstacle texture.
      */
     public abstract void draw(SpriteBatch spriteBatch);
+
+    /**
+     * Initializes the models array for collision detection.
+     */
+    public abstract void setModels();
+
+    /**
+     * Determines if the parachutist was killed by the obstacle.
+     * @param parachutist The parachutist.
+     * @return Whether or not the parachutist collided with the obstacle.
+     */
+    public boolean kills(Parachutist parachutist) {
+        Array<Polygon> obstaclePolygons = new Array<Polygon>();
+        for (Model model : models) {
+            obstaclePolygons.addAll(model.getPolygons());
+        }
+        Array<Polygon> parachutistPolygons = parachutist.getModel().getPolygons();
+        for (Polygon parachutistPolygon : parachutistPolygons) {
+            for (Polygon obstaclePolygon : obstaclePolygons) {
+                if (Intersector.overlapConvexPolygons(parachutistPolygon, obstaclePolygon)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     /**
      * Determines if the parachutist passed the obstacle.
@@ -51,14 +71,25 @@ public abstract class Obstacle {
 
     public void move() {
         y += velocity;
+        for (Model model : models) {
+            model.changeY(velocity);
+        }
     }
 
     public void setX(float x) {
+        float difference = this.x - x;
         this.x = x;
+        for (Model model : models) {
+            model.changeX(difference);
+        }
     }
 
     public void setY(float y) {
+        float difference = this.y - y;
         this.y = y;
+        for (Model model : models) {
+            model.changeY(difference);
+        }
     }
 
     public void setWidth(float width) {
@@ -99,27 +130,5 @@ public abstract class Obstacle {
 
     public boolean isScored() {
         return scored;
-    }
-
-    // Triangulation for concave polygon collision detection
-    private static EarClippingTriangulator triangulator;
-
-    static {
-        triangulator = new EarClippingTriangulator();
-    }
-
-    // SOURCE: https://stackoverflow.com/a/42319276/7300063
-    protected static Array<Polygon> triangulate(Polygon polygon) {
-        float[] vertices = polygon.getTransformedVertices();
-        ShortArray triangleVertexIndices = triangulator.computeTriangles(vertices);
-        Array<Polygon> triangles = new Array<Polygon>();
-        for (int i = 0; i < triangleVertexIndices.size; i += 3) {
-            triangles.add(new Polygon(new float[] {
-                vertices[triangleVertexIndices.get(i) * 2], vertices[triangleVertexIndices.get(i) * 2 + 1],
-                vertices[triangleVertexIndices.get(i + 1) * 2], vertices[triangleVertexIndices.get(i + 1) * 2 + 1],
-                vertices[triangleVertexIndices.get(i + 2) * 2], vertices[triangleVertexIndices.get(i + 2) * 2 + 1]
-            }));
-        }
-        return triangles;
     }
 }
