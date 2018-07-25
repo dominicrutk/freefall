@@ -21,7 +21,7 @@ public class RandomObstacleGenerator {
 //        if (random < 1f / 3) return getSingleLaser(y);
 //        else if (random < 2f / 3) return getDoubleLaser(y);
 //        else return getSplitLaser(y);
-        return getSingleLaser(y);
+        return Math.random() >= 0.5 ? getSingleLaser(y) : getSplitLaser(y);
     }
 
     public SingleLaser getSingleLaser(float y) {
