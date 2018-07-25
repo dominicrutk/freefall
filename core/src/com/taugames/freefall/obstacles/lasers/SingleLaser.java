@@ -39,7 +39,6 @@ public class SingleLaser extends Obstacle {
                     0, y + height - 2 * px
             }));
             polygons.add(new Polygon(new float[] {
-                    width - 8 * px, y + 2 * px,
                     width - 8 * px, y + px,
                     width - 6 * px, y,
                     width - px, y,
@@ -47,8 +46,7 @@ public class SingleLaser extends Obstacle {
                     width, y + height - px,
                     width - px, y + height,
                     width - 6 * px, y + height,
-                    width - 8 * px, y + height - px,
-                    width - 8 * px, y + height - 2 * px
+                    width - 8 * px, y + height - px
             }));
         } else {
             polygons.add(new Polygon(new float[] {
@@ -58,7 +56,6 @@ public class SingleLaser extends Obstacle {
                     x + width, y + height - 2 * px
             }));
             polygons.add(new Polygon(new float[] {
-                    x + 8 * px, y + 2 * px,
                     x + 8 * px, y + px,
                     x + 6 * px, y,
                     x + px, y,
@@ -66,8 +63,7 @@ public class SingleLaser extends Obstacle {
                     x, y + height - px,
                     x + px, y + height,
                     x + 6 * px, y + height,
-                    x + 8 * px, y + height - px,
-                    x + 8 * px, y + height - 2 * px
+                    x + 8 * px, y + height - px
             }));
         }
         models.add(new Model(polygons));
