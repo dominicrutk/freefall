@@ -49,6 +49,12 @@ public class ObstacleQueue {
         }
     }
 
+    public void drawModels() {
+        for (Obstacle obstacle : obstacles) {
+            obstacle.drawModels();
+        }
+    }
+
     public boolean kills(Parachutist parachutist) {
         for (Obstacle obstacle : obstacles) {
             if (obstacle.getY() > parachutist.getY() + parachutist.getHeight()) {

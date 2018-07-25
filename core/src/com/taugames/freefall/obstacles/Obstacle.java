@@ -69,6 +69,12 @@ public abstract class Obstacle {
         return parachutist.getY() + parachutist.getHeight() / 2f <= y + height / 2;
     }
 
+    public void drawModels() {
+        for (Model model : models) {
+            model.draw();
+        }
+    }
+
     public void move() {
         y += velocity;
         for (Model model : models) {
