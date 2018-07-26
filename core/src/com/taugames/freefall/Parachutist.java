@@ -40,18 +40,18 @@ public class Parachutist {
     }
 
     public void incrementX(float x) {
-        this.x += x;
-        if (this.x + width / 2 > Gdx.graphics.getWidth()) {
-            this.x = Gdx.graphics.getWidth() - width / 2;
+        if (this.x + x + width / 2 > Gdx.graphics.getWidth()) {
+            x = Gdx.graphics.getWidth() - width / 2 - this.x;
         }
+        this.x += x;
         model.changeX(x);
     }
 
     public void decrementX(float x) {
-        this.x -= x;
-        if (this.x + width / 2 < 0) {
-            this.x = -1 * width / 2;
+        if (this.x - x + width / 2 < 0) {
+            x = -1 * width / 2 - this.x;
         }
+        this.x -= x;
         model.changeX(-1 * x);
     }
 
