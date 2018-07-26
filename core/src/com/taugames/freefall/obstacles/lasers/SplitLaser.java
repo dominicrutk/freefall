@@ -27,6 +27,7 @@ public class SplitLaser extends Obstacle {
         models = new Array<Model>();
         Array<Polygon> polygons = new Array<Polygon>();
         float px = height / 8;
+        // Right laser end
         polygons.add(new Polygon(new float[] {
                 x + 8 * px, y + px,
                 x + 6 * px, y,
@@ -37,12 +38,14 @@ public class SplitLaser extends Obstacle {
                 x + 6 * px, y + height,
                 x + 8 * px, y + height - px
         }));
+        // Laser body
         polygons.add(new Polygon(new float[] {
                 x + height, y + 2 * px,
                 x + height, y + height - 2 * px,
                 x + width - height, y + height - 2 * px,
                 x + width - height, y + 2 * px
         }));
+        // Left laser end
         polygons.add(new Polygon(new float[] {
                 x + width - height, y + px,
                 x + width - height + 2 * px, y,

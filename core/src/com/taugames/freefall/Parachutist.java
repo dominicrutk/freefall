@@ -78,7 +78,6 @@ public class Parachutist {
     public void setModel() {
         float px = width / 32;
         Array<Polygon> polygons = new Array<Polygon>();
-
         // Feet
         polygons.add(new Polygon(new float[] {
                 x + 10 * px, y + 0 * px,
@@ -88,7 +87,6 @@ public class Parachutist {
                 x + 22 * px, y + 3 * px,
                 x + 22 * px, y + 0 * px
         }));
-
         // Torso
         polygons.add(new Polygon(new float[] {
                 x + 12 * px, y + 5 * px,
@@ -96,7 +94,6 @@ public class Parachutist {
                 x + 20 * px, y + 10 * px,
                 x + 20 * px, y + 5 * px
         }));
-
         // Chest and arms
         polygons.add(new Polygon(new float[] {
                 x + 11 * px, y + 10 * px,
@@ -110,7 +107,6 @@ public class Parachutist {
                 x + 25 * px, y + 11 * px,
                 x + 21 * px, y + 10 * px
         }));
-
         // Parachute strings and head
         polygons.add(new Polygon(new float[] {
                 x + 6 * px, y + 17 * px,
@@ -120,7 +116,6 @@ public class Parachutist {
                 x + 30 * px, y + 21 * px,
                 x + 26 * px, y + 17 * px
         }));
-
         // Parachute
         polygons.add(new Polygon(new float[] {
                 x + 2 * px, y + 22 * px,
@@ -136,7 +131,6 @@ public class Parachutist {
                 x + 30 * px, y + 25 * px,
                 x + 30 * px, y + 22 * px
         }));
-
         model = new Model(polygons);
     }
 

@@ -28,12 +28,14 @@ public class DoubleLaser extends Obstacle {
         models = new Array<Model>();
         Array<Polygon> polygons = new Array<Polygon>();
         float px = height / 8;
+        // Left laser body
         polygons.add(new Polygon(new float[] {
                 0, y + 2 * px,
                 x - width / 2 - height, y + 2 * px,
                 x - width / 2 - height, y + height - 2 * px,
                 0, y + height - 2 * px
         }));
+        // Left laser end
         polygons.add(new Polygon(new float[] {
                 x - width / 2 - 8 * px, y + px,
                 x - width / 2 - 6 * px, y,
@@ -44,6 +46,7 @@ public class DoubleLaser extends Obstacle {
                 x - width / 2 - 6 * px, y + height,
                 x - width / 2 - 8 * px, y + height - px
         }));
+        // Right laser end
         polygons.add(new Polygon(new float[] {
                 x + width / 2, y + px,
                 x + width / 2 + px, y,
@@ -54,6 +57,7 @@ public class DoubleLaser extends Obstacle {
                 x + width / 2 + px, y + height,
                 x + width / 2, y + height - px
         }));
+        // Right laser body
         polygons.add(new Polygon(new float[] {
                 x + width / 2 + height, y + 2 * px,
                 Gdx.graphics.getWidth(), y + 2 * px,

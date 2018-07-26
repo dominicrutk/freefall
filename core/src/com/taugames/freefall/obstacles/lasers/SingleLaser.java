@@ -32,12 +32,14 @@ public class SingleLaser extends Obstacle {
         Array<Polygon> polygons = new Array<Polygon>();
         float px = height / 8;
         if (direction == Direction.LEFT) {
+            // Laser body
             polygons.add(new Polygon(new float[] {
                     0, y + 2 * px,
                     width - 8 * px, y + 2 * px,
                     width - 8 * px, y + height - 2 * px,
                     0, y + height - 2 * px
             }));
+            // Laser end
             polygons.add(new Polygon(new float[] {
                     width - 8 * px, y + px,
                     width - 6 * px, y,
@@ -49,12 +51,14 @@ public class SingleLaser extends Obstacle {
                     width - 8 * px, y + height - px
             }));
         } else {
+            // Laser body
             polygons.add(new Polygon(new float[] {
                     x + width, y + 2 * px,
                     x + 8 * px, y + 2 * px,
                     x + 8 * px, y + height - 2 * px,
                     x + width, y + height - 2 * px
             }));
+            // Laser end
             polygons.add(new Polygon(new float[] {
                     x + 8 * px, y + px,
                     x + 6 * px, y,
