@@ -49,10 +49,23 @@ public class ObstacleQueue {
         }
     }
 
+    public void drawModels() {
+        for (Obstacle obstacle : obstacles) {
+            obstacle.drawModels();
+        }
+    }
+
     public boolean kills(Parachutist parachutist) {
         for (Obstacle obstacle : obstacles) {
-            if (obstacle.kills(parachutist)) {
-                return true;
+            if (obstacle.getY() > parachutist.getY() + parachutist.getHeight()) {
+                // Obstacle above parachutist
+            } else if (obstacle.getY() + obstacle.getHeight() < parachutist.getY()) {
+                // Obstacle under parachutist
+            } else {
+                // Obstacle near parachutist
+                if (obstacle.kills(parachutist)) {
+                    return true;
+                }
             }
         }
         return false;

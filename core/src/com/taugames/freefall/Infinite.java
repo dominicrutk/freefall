@@ -12,12 +12,14 @@ import com.taugames.freefall.obstacles.util.RandomObstacleGenerator;
 public class Infinite implements Screen {
     private final Game game;
     private TouchInputListener touchInputListener;
+    private GameState gameState;
     private Parachutist parachutist;
     private RandomObstacleGenerator obstacleGenerator;
     private ObstacleQueue obstacleQueue;
-    private int score;
+    private long score;
 
     public Infinite(Game game) {
+        gameState = GameState.LOADING;
         this.game = game;
 
         touchInputListener = new TouchInputListener();
@@ -37,6 +39,8 @@ public class Infinite implements Screen {
         obstacleQueue = new ObstacleQueue(obstacleGenerator, obstacleGap);
 
         score = 0;
+
+        gameState = GameState.RUNNING;
     }
 
     @Override
@@ -49,16 +53,22 @@ public class Infinite implements Screen {
         Gdx.gl.glClearColor(135f / 255, 206f / 255, 250f / 255, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        TouchInputListener.TouchInputState touchInputState = touchInputListener.getInputState();
-        if (touchInputState == TouchInputListener.TouchInputState.LEFT) {
-            parachutist.moveLeft();
-        } else if (touchInputState == TouchInputListener.TouchInputState.RIGHT) {
-            parachutist.moveRight();
+        if (gameState != GameState.DEAD && gameState != GameState.COMPLETED) {
+            TouchInputListener.TouchInputState touchInputState = touchInputListener.getInputState();
+            if (touchInputState == TouchInputListener.TouchInputState.LEFT) {
+                parachutist.moveLeft();
+            } else if (touchInputState == TouchInputListener.TouchInputState.RIGHT) {
+                parachutist.moveRight();
+            }
+
+            obstacleQueue.updateObstacles();
+
+            if (obstacleQueue.kills(parachutist)) {
+                gameState = GameState.DEAD;
+            }
+
+            score += obstacleQueue.pointsToAdd(parachutist);
         }
-
-        obstacleQueue.updateObstacles();
-
-        score += obstacleQueue.pointsToAdd(parachutist);
 
         SpriteBatch spriteBatch = game.getSpriteBatch();
         spriteBatch.begin();

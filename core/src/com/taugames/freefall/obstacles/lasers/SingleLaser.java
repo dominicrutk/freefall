@@ -3,8 +3,10 @@ package com.taugames.freefall.obstacles.lasers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.utils.Array;
 import com.taugames.freefall.Game;
-import com.taugames.freefall.Parachutist;
+import com.taugames.freefall.Model;
 import com.taugames.freefall.obstacles.Obstacle;
 
 public class SingleLaser extends Obstacle {
@@ -17,6 +19,7 @@ public class SingleLaser extends Obstacle {
         this.direction = direction;
         laserBody = game.getAssetManager().get("img/lasers/laserBody.png", Texture.class);
         laserEnd = game.getAssetManager().get("img/lasers/laserEnd" + (direction == Direction.LEFT ? "Left" : "Right") + ".png", Texture.class);
+        setModels();
     }
 
     public enum Direction {
@@ -24,8 +27,50 @@ public class SingleLaser extends Obstacle {
     }
 
     @Override
-    public boolean kills(Parachutist parachutist) {
-        return false;
+    public void setModels() {
+        models = new Array<Model>();
+        Array<Polygon> polygons = new Array<Polygon>();
+        float px = height / 8;
+        if (direction == Direction.LEFT) {
+            // Laser body
+            polygons.add(new Polygon(new float[] {
+                    0, y + 2 * px,
+                    width - 8 * px, y + 2 * px,
+                    width - 8 * px, y + height - 2 * px,
+                    0, y + height - 2 * px
+            }));
+            // Laser end
+            polygons.add(new Polygon(new float[] {
+                    width - 8 * px, y + px,
+                    width - 6 * px, y,
+                    width - px, y,
+                    width, y + px,
+                    width, y + height - px,
+                    width - px, y + height,
+                    width - 6 * px, y + height,
+                    width - 8 * px, y + height - px
+            }));
+        } else {
+            // Laser body
+            polygons.add(new Polygon(new float[] {
+                    x + width, y + 2 * px,
+                    x + 8 * px, y + 2 * px,
+                    x + 8 * px, y + height - 2 * px,
+                    x + width, y + height - 2 * px
+            }));
+            // Laser end
+            polygons.add(new Polygon(new float[] {
+                    x + 8 * px, y + px,
+                    x + 6 * px, y,
+                    x + px, y,
+                    x, y + px,
+                    x, y + height - px,
+                    x + px, y + height,
+                    x + 6 * px, y + height,
+                    x + 8 * px, y + height - px
+            }));
+        }
+        models.add(new Model(polygons));
     }
 
     @Override
