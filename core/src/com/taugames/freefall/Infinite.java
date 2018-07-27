@@ -1,10 +1,12 @@
 package com.taugames.freefall;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.taugames.freefall.input.TouchInputListener;
 import com.taugames.freefall.obstacles.util.ObstacleQueue;
 import com.taugames.freefall.obstacles.util.RandomObstacleGenerator;
@@ -17,6 +19,10 @@ public class Infinite implements Screen {
     private RandomObstacleGenerator obstacleGenerator;
     private ObstacleQueue obstacleQueue;
     private long score;
+    private int rotationSetting = 3;
+    private float rotationX = 0;
+    private float rotationSensitivity;
+    private boolean accelAvailable;
 
     public Infinite(Game game) {
         gameState = GameState.LOADING;
@@ -40,6 +46,9 @@ public class Infinite implements Screen {
 
         obstacleQueue = new ObstacleQueue(obstacleGenerator, obstacleGap);
 
+        accelAvailable = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
+        rotationSensitivity = Math.abs(rotationSetting - 6) / 2;
+
         score = 0;
 
         gameState = GameState.RUNNING;
@@ -57,9 +66,16 @@ public class Infinite implements Screen {
 
         if (gameState != GameState.DEAD && gameState != GameState.COMPLETED) {
             TouchInputListener.TouchInputState touchInputState = touchInputListener.getInputState();
-            if (touchInputState == TouchInputListener.TouchInputState.LEFT) {
+            if (accelAvailable) {
+                rotationX = Gdx.input.getAccelerometerX();
+
+                rotationX *= (Gdx.graphics.getDeltaTime() * MathUtils.radiansToDegrees);
+
+                Gdx.app.log("Rotation", Float.toString(rotationX));
+            }
+            if (touchInputState == TouchInputListener.TouchInputState.LEFT || rotationX > rotationSensitivity) {
                 parachutist.moveLeft();
-            } else if (touchInputState == TouchInputListener.TouchInputState.RIGHT) {
+            } else if (touchInputState == TouchInputListener.TouchInputState.RIGHT || rotationX < -rotationSensitivity) {
                 parachutist.moveRight();
             } else {
                 parachutist.resetVelocity();

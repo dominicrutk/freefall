@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -19,11 +18,9 @@ public class MainMenu implements Screen {
 
     public MainMenu(final Game game) {
 
-
         float playLength = Gdx.graphics.getWidth() / 4f;
         float iconLength = Gdx.graphics.getWidth() / 10f;
         float iconDist = 20 * Gdx.graphics.getWidth() / 1440f;
-
 
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
