@@ -83,7 +83,7 @@ public abstract class Obstacle {
     }
 
     public void setX(float x) {
-        float difference = this.x - x;
+        float difference = x - this.x;
         this.x = x;
         for (Model model : models) {
             model.changeX(difference);
@@ -91,7 +91,7 @@ public abstract class Obstacle {
     }
 
     public void setY(float y) {
-        float difference = this.y - y;
+        float difference = y - this.y;
         this.y = y;
         for (Model model : models) {
             model.changeY(difference);

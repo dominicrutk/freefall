@@ -84,14 +84,18 @@ public class Parachutist {
     }
 
     public void setX(float x) {
-        float difference = this.x - x;
+        float difference = x - this.x;
         this.x = x;
         model.changeX(difference);
-        direction = Direction.NONE;
+        if (difference != 0) {
+            direction = difference < 0 ? Direction.LEFT : Direction.RIGHT;
+        } else {
+            direction = Direction.NONE;
+        }
     }
 
     public void setY(float y) {
-        float difference = this.y - y;
+        float difference = y - this.y;
         this.y = y;
         model.changeY(difference);
     }
