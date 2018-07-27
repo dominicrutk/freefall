@@ -34,8 +34,8 @@ public class Infinite implements Screen {
         float parachutistVelocityDelta = Gdx.graphics.getWidth() / 3000f;
         parachutist = new Parachutist(parachutistTexture, parachutistX, parachutistY, parachutistWidth, parachutistHeight, parachutistVelocity, parachutistVelocityDelta);
 
-        float obstacleGap = Gdx.graphics.getWidth() / 2f;
-        float obstacleVelocity = obstacleGap / 90;
+        float obstacleGap = 5 * Gdx.graphics.getWidth() / 11f;
+        float obstacleVelocity = Gdx.graphics.getWidth() / 180f;
         obstacleGenerator = new RandomObstacleGenerator(game, obstacleVelocity);
 
         obstacleQueue = new ObstacleQueue(obstacleGenerator, obstacleGap);

@@ -39,6 +39,7 @@ public class ObstacleQueue {
     public void addObstacles() {
         while (obstacles.peek().getY() >= 0) {
             Obstacle next = obstacleGenerator.getObstacle(obstacles.peek().getY() - obstacleGap);
+            next.setY(next.getY() - next.getHeight());
             obstacles.add(next);
         }
     }
