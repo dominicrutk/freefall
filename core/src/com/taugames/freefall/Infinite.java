@@ -30,11 +30,13 @@ public class Infinite implements Screen {
         float parachutistHeight = parachutistWidth;
         float parachutistX = Gdx.graphics.getWidth() / 2f - parachutistWidth / 2f;
         float parachutistY = Gdx.graphics.getHeight() / 2f - parachutistHeight / 2f;
-        parachutist = new Parachutist(parachutistTexture, parachutistX, parachutistY, parachutistWidth, parachutistHeight);
+        float parachutistVelocity = 3 * Gdx.graphics.getWidth() / 250f;
+        float parachutistVelocityDelta = Gdx.graphics.getWidth() / 3000f;
+        parachutist = new Parachutist(parachutistTexture, parachutistX, parachutistY, parachutistWidth, parachutistHeight, parachutistVelocity, parachutistVelocityDelta);
 
         float obstacleGap = Gdx.graphics.getWidth() / 2f;
-        float velocity = obstacleGap / 90;
-        obstacleGenerator = new RandomObstacleGenerator(game, velocity);
+        float obstacleVelocity = obstacleGap / 90;
+        obstacleGenerator = new RandomObstacleGenerator(game, obstacleVelocity);
 
         obstacleQueue = new ObstacleQueue(obstacleGenerator, obstacleGap);
 
@@ -59,6 +61,8 @@ public class Infinite implements Screen {
                 parachutist.moveLeft();
             } else if (touchInputState == TouchInputListener.TouchInputState.RIGHT) {
                 parachutist.moveRight();
+            } else {
+                parachutist.resetVelocity();
             }
 
             obstacleQueue.updateObstacles();
