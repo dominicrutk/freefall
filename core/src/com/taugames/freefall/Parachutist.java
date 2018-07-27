@@ -13,14 +13,23 @@ public class Parachutist {
     private float width;
     private float height;
     private Model model;
-    private static final float VELOCITY = 16;
+    private float baseVelocity;
+    private float velocityDelta;
+    private float velocity;
+    private Direction direction = Direction.NONE;
+    private enum Direction {
+        LEFT, NONE, RIGHT
+    }
 
-    public Parachutist(Texture texture, float x, float y, float width, float height) {
+    public Parachutist(Texture texture, float x, float y, float width, float height, float velocity, float velocityDelta) {
         this.texture = texture;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        baseVelocity = velocity;
+        this.velocityDelta = velocityDelta;
+        this.velocity = velocity;
         setModel();
     }
 
@@ -32,24 +41,43 @@ public class Parachutist {
     }
 
     public void moveRight() {
-        incrementX(VELOCITY);
+        incrementX(velocity);
     }
 
     public void moveLeft() {
-        decrementX(VELOCITY);
+        decrementX(velocity);
+    }
+
+    public void resetVelocity() {
+        velocity = baseVelocity;
+        direction = Direction.NONE;
     }
 
     public void incrementX(float x) {
+        if (direction == Direction.RIGHT) {
+            velocity += velocityDelta;
+        } else {
+            velocity = baseVelocity;
+        }
+        direction = Direction.RIGHT;
         if (this.x + x + width / 2 > Gdx.graphics.getWidth()) {
             x = Gdx.graphics.getWidth() - width / 2 - this.x;
+            direction = Direction.NONE;
         }
         this.x += x;
         model.changeX(x);
     }
 
     public void decrementX(float x) {
+        if (direction == Direction.LEFT) {
+            velocity += velocityDelta;
+        } else {
+            velocity = baseVelocity;
+        }
+        direction = Direction.LEFT;
         if (this.x - x + width / 2 < 0) {
-            x = -1 * width / 2 - this.x;
+            x = this.x + width / 2;
+            direction = Direction.NONE;
         }
         this.x -= x;
         model.changeX(-1 * x);
@@ -59,6 +87,7 @@ public class Parachutist {
         float difference = this.x - x;
         this.x = x;
         model.changeX(difference);
+        direction = Direction.NONE;
     }
 
     public void setY(float y) {
