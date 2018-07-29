@@ -52,4 +52,30 @@ public class Settings {
     public float getSensitivity() {
         return preferences.getFloat("sensitivity", 0.5f);
     }
+
+    // Music volume (musicVolume) settings
+    public void setMusicVolume(float volume) {
+        if (volume < 0 || volume > 1) {
+            throw new IllegalArgumentException("The music volume is not allowed to be less than 0 or greater than 1.");
+        }
+        preferences.putFloat("musicVolume", volume);
+        save();
+    }
+
+    public float getMusicVolume() {
+        return preferences.getFloat("musicVolume", 1);
+    }
+
+    // Sound effects volume (soundEffectsVolume) settings
+    public void setSoundEffectsVolume(float volume) {
+        if (volume < 0 || volume > 1) {
+            throw new IllegalArgumentException("The sound effects volume is not allowed to be less than 0 or greater than 1.");
+        }
+        preferences.putFloat("soundEffectsVolume", volume);
+        save();
+    }
+
+    public float getSoundEffectsVolume() {
+        return preferences.getFloat("soundEffectsVolume", 1);
+    }
 }
