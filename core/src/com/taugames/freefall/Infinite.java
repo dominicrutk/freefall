@@ -6,30 +6,32 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
+import com.taugames.freefall.input.InputListener;
+import com.taugames.freefall.input.InputState;
+import com.taugames.freefall.input.RotationInputListener;
 import com.taugames.freefall.input.TouchInputListener;
 import com.taugames.freefall.obstacles.util.ObstacleQueue;
 import com.taugames.freefall.obstacles.util.RandomObstacleGenerator;
 
 public class Infinite implements Screen {
     private final Game game;
-    private TouchInputListener touchInputListener;
+    private InputListener inputListener;
     private GameState gameState;
     private Parachutist parachutist;
     private RandomObstacleGenerator obstacleGenerator;
     private ObstacleQueue obstacleQueue;
     private long score;
-    private int rotationSetting = 3;
-    private float rotationX = 0;
-    private float rotationSensitivity;
-    private boolean accelAvailable;
 
     public Infinite(Game game) {
         gameState = GameState.LOADING;
         this.game = game;
 
-        touchInputListener = new TouchInputListener();
-        Gdx.input.setInputProcessor(touchInputListener);
+        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
+            inputListener = new RotationInputListener();
+        } else {
+            inputListener = new TouchInputListener();
+            Gdx.input.setInputProcessor((TouchInputListener) inputListener);
+        }
 
         Texture parachutistTexture = game.getAssetManager().get("img/parachutist.png", Texture.class);
         float parachutistWidth = Gdx.graphics.getWidth() / 8f;
@@ -45,9 +47,6 @@ public class Infinite implements Screen {
         obstacleGenerator = new RandomObstacleGenerator(game, obstacleVelocity);
 
         obstacleQueue = new ObstacleQueue(obstacleGenerator, obstacleGap);
-
-        accelAvailable = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
-        rotationSensitivity = Math.abs(rotationSetting - 6) / 2;
 
         score = 0;
 
@@ -65,17 +64,11 @@ public class Infinite implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (gameState != GameState.DEAD && gameState != GameState.COMPLETED) {
-            TouchInputListener.TouchInputState touchInputState = touchInputListener.getInputState();
-            if (accelAvailable) {
-                rotationX = Gdx.input.getAccelerometerX();
-
-                rotationX *= (Gdx.graphics.getDeltaTime() * MathUtils.radiansToDegrees);
-
-                Gdx.app.log("Rotation", Float.toString(rotationX));
-            }
-            if (touchInputState == TouchInputListener.TouchInputState.LEFT || rotationX > rotationSensitivity) {
+            inputListener.updateInputState();
+            InputState inputState = inputListener.getInputState();
+            if (inputState == InputState.LEFT) {
                 parachutist.moveLeft();
-            } else if (touchInputState == TouchInputListener.TouchInputState.RIGHT || rotationX < -rotationSensitivity) {
+            } else if (inputState == InputState.RIGHT) {
                 parachutist.moveRight();
             } else {
                 parachutist.resetVelocity();
