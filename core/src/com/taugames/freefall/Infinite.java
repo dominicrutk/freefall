@@ -1,7 +1,6 @@
 package com.taugames.freefall;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,6 +14,7 @@ import com.taugames.freefall.obstacles.util.RandomObstacleGenerator;
 
 public class Infinite implements Screen {
     private final Game game;
+    private Settings settings;
     private InputListener inputListener;
     private GameState gameState;
     private Parachutist parachutist;
@@ -26,7 +26,10 @@ public class Infinite implements Screen {
         gameState = GameState.LOADING;
         this.game = game;
 
-        if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
+        settings = game.getSettings();
+
+        Settings.InputType inputType = settings.getInputType();
+        if (inputType == Settings.InputType.ROTATION && settings.rotationInputAvailable()) {
             inputListener = new RotationInputListener();
         } else {
             inputListener = new TouchInputListener();

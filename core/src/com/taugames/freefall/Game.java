@@ -7,11 +7,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Game extends com.badlogic.gdx.Game {
     private SpriteBatch spriteBatch;
     private AssetManager assetManager;
+    private Settings settings;
 
     @Override
     public void create() {
         spriteBatch = new SpriteBatch();
         assetManager = new AssetManager();
+        settings = new Settings();
         loadAssets();
         this.setScreen(new MainMenu(this));
     }
@@ -47,5 +49,9 @@ public class Game extends com.badlogic.gdx.Game {
 
     public AssetManager getAssetManager() {
         return assetManager;
+    }
+
+    public Settings getSettings() {
+        return settings;
     }
 }
