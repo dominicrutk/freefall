@@ -36,14 +36,7 @@ public class Infinite implements Screen {
             Gdx.input.setInputProcessor((TouchInputListener) inputListener);
         }
 
-        Texture parachutistTexture = game.getAssetManager().get("img/parachutist.png", Texture.class);
-        float parachutistWidth = Gdx.graphics.getWidth() / 8f;
-        float parachutistHeight = parachutistWidth;
-        float parachutistX = Gdx.graphics.getWidth() / 2f - parachutistWidth / 2f;
-        float parachutistY = Gdx.graphics.getHeight() / 2f - parachutistHeight / 2f;
-        float parachutistVelocity = 3 * Gdx.graphics.getWidth() / 250f;
-        float parachutistVelocityDelta = Gdx.graphics.getWidth() / 3000f;
-        parachutist = new Parachutist(parachutistTexture, parachutistX, parachutistY, parachutistWidth, parachutistHeight, parachutistVelocity, parachutistVelocityDelta);
+        parachutist = new Parachutist(game);
 
         float obstacleGap = 5 * Gdx.graphics.getWidth() / 11f;
         float obstacleVelocity = Gdx.graphics.getWidth() / 180f;

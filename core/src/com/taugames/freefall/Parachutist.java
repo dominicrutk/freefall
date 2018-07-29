@@ -21,6 +21,18 @@ public class Parachutist {
         LEFT, NONE, RIGHT
     }
 
+    public Parachutist(Game game) {
+        this(
+                game.getAssetManager().get("img/parachutist.png", Texture.class),
+                7 * Gdx.graphics.getWidth() / 16f,
+                119 * Gdx.graphics.getWidth() / 144f,
+                Gdx.graphics.getWidth() / 8f,
+                Gdx.graphics.getWidth() / 8f,
+                3 * Gdx.graphics.getWidth() / 250f,
+                Gdx.graphics.getWidth() / 3000f
+        );
+    }
+
     public Parachutist(Texture texture, float x, float y, float width, float height, float velocity, float velocityDelta) {
         this.texture = texture;
         this.x = x;
