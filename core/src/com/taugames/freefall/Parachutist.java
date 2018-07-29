@@ -25,7 +25,7 @@ public class Parachutist {
         this(
                 game.getAssetManager().get("img/parachutist.png", Texture.class),
                 7 * Gdx.graphics.getWidth() / 16f,
-                Gdx.graphics.getHeight() / 2f - Gdx.graphics.getWidth() / 16f,
+                119 * Gdx.graphics.getWidth() / 144f,
                 Gdx.graphics.getWidth() / 8f,
                 Gdx.graphics.getWidth() / 8f,
                 3 * Gdx.graphics.getWidth() / 250f,
