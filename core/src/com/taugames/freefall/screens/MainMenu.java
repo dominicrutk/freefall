@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -16,6 +18,7 @@ import com.taugames.freefall.Game;
 public class MainMenu implements Screen {
     private final Game game;
     private Stage stage;
+    private BitmapFont font;
 
     public MainMenu(final Game game) {
         this.game = game;
@@ -62,6 +65,8 @@ public class MainMenu implements Screen {
             }
         });
         stage.addActor(shoppingCartButton);
+
+        font = game.getAssetManager().get("font/small.fnt", BitmapFont.class);
     }
 
     @Override
@@ -76,6 +81,13 @@ public class MainMenu implements Screen {
 
         stage.act();
         stage.draw();
+
+        game.getGlyphLayout().setText(font, "TEST");
+        SpriteBatch spriteBatch = game.getSpriteBatch();
+        spriteBatch.begin();
+        font.draw(spriteBatch, "TEST", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, Gdx.graphics.getHeight() - 25);
+        font.draw(spriteBatch, "TEST", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, Gdx.graphics.getHeight() - 100);
+        spriteBatch.end();
     }
 
     @Override
