@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.taugames.freefall.Game;
-import com.taugames.freefall.screens.Infinite;
 
 public class MainMenu implements Screen {
     private final Game game;
