@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader.FreeTypeFontLoaderParameter;
 
 public class Game extends com.badlogic.gdx.Game {
     private SpriteBatch spriteBatch;
@@ -44,9 +45,9 @@ public class Game extends com.badlogic.gdx.Game {
 
     private void loadAssets() {
         // Fonts
-        FreetypeFontLoader.FreeTypeFontLoaderParameter font = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        FreeTypeFontLoaderParameter font = new FreeTypeFontLoaderParameter();
         font.fontFileName = "font/PressStart2P.ttf";
-        font.fontParameters.size = 32;
+        font.fontParameters.size = 100;
         assetManager.load("font/PressStart2P.ttf", BitmapFont.class, font);
 
         // Icons

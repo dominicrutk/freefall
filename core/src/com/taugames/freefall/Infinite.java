@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.taugames.freefall.input.InputListener;
 import com.taugames.freefall.input.InputState;
@@ -21,6 +22,7 @@ public class Infinite implements Screen {
     private RandomObstacleGenerator obstacleGenerator;
     private ObstacleQueue obstacleQueue;
     private long score;
+    private BitmapFont font;
 
     public Infinite(Game game) {
         gameState = GameState.LOADING;
@@ -45,6 +47,8 @@ public class Infinite implements Screen {
         obstacleQueue = new ObstacleQueue(obstacleGenerator, obstacleGap);
 
         score = 0;
+
+        font = game.getAssetManager().get("font/PressStart2P.ttf", BitmapFont.class);
 
         gameState = GameState.RUNNING;
     }
@@ -83,6 +87,7 @@ public class Infinite implements Screen {
         spriteBatch.begin();
         obstacleQueue.draw(spriteBatch);
         parachutist.draw(spriteBatch);
+        font.draw(spriteBatch, Long.toString(score), 25, Gdx.graphics.getHeight() - 25);
         spriteBatch.end();
     }
 
