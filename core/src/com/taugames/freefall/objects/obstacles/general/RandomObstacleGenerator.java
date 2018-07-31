@@ -1,11 +1,9 @@
-package com.taugames.freefall.obstacles.util;
+package com.taugames.freefall.objects.obstacles.general;
 
 import com.badlogic.gdx.Gdx;
 import com.taugames.freefall.Game;
-import com.taugames.freefall.obstacles.Obstacle;
-import com.taugames.freefall.obstacles.lasers.DoubleLaser;
-import com.taugames.freefall.obstacles.lasers.SingleLaser;
-import com.taugames.freefall.obstacles.lasers.SplitLaser;
+import com.taugames.freefall.objects.obstacles.lasers.DoubleLaser;
+import com.taugames.freefall.objects.obstacles.lasers.SplitLaser;
 
 public class RandomObstacleGenerator {
     private final Game game;
@@ -23,13 +21,13 @@ public class RandomObstacleGenerator {
         else return getSplitLaser(y);
     }
 
-    public SingleLaser getSingleLaser(float y) {
-        SingleLaser.Direction direction = Math.random() >= 0.5 ? SingleLaser.Direction.LEFT : SingleLaser.Direction.RIGHT;
+    public com.taugames.freefall.objects.obstacles.lasers.SingleLaser getSingleLaser(float y) {
+        com.taugames.freefall.objects.obstacles.lasers.SingleLaser.Direction direction = Math.random() >= 0.5 ? com.taugames.freefall.objects.obstacles.lasers.SingleLaser.Direction.LEFT : com.taugames.freefall.objects.obstacles.lasers.SingleLaser.Direction.RIGHT;
         float gap = (float) Math.random() * Gdx.graphics.getWidth() / 16f + 3f / 16 * Gdx.graphics.getWidth();
-        float x = direction == SingleLaser.Direction.LEFT ? Gdx.graphics.getWidth() - gap : gap;
-        float width = direction == SingleLaser.Direction.LEFT ? x : Gdx.graphics.getWidth() - gap;
+        float x = direction == com.taugames.freefall.objects.obstacles.lasers.SingleLaser.Direction.LEFT ? Gdx.graphics.getWidth() - gap : gap;
+        float width = direction == com.taugames.freefall.objects.obstacles.lasers.SingleLaser.Direction.LEFT ? x : Gdx.graphics.getWidth() - gap;
         float height = Gdx.graphics.getWidth() / 32f;
-        return new SingleLaser(game, direction, x, y, width, height, velocity);
+        return new com.taugames.freefall.objects.obstacles.lasers.SingleLaser(game, direction, x, y, width, height, velocity);
     }
 
     public DoubleLaser getDoubleLaser(float y) {

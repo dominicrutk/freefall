@@ -1,4 +1,4 @@
-package com.taugames.freefall.obstacles.lasers;
+package com.taugames.freefall.objects.obstacles.lasers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
 import com.taugames.freefall.Game;
-import com.taugames.freefall.Model;
-import com.taugames.freefall.obstacles.Obstacle;
+import com.taugames.freefall.objects.Model;
+import com.taugames.freefall.objects.obstacles.general.Obstacle;
 
 public class SingleLaser extends Obstacle {
     private Direction direction;

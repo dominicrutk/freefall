@@ -1,16 +1,20 @@
-package com.taugames.freefall;
+package com.taugames.freefall.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.taugames.freefall.Game;
+import com.taugames.freefall.util.GameState;
+import com.taugames.freefall.objects.Parachutist;
+import com.taugames.freefall.util.Settings;
 import com.taugames.freefall.input.InputListener;
 import com.taugames.freefall.input.InputState;
 import com.taugames.freefall.input.RotationInputListener;
 import com.taugames.freefall.input.TouchInputListener;
-import com.taugames.freefall.obstacles.util.ObstacleQueue;
-import com.taugames.freefall.obstacles.util.RandomObstacleGenerator;
+import com.taugames.freefall.objects.obstacles.general.ObstacleQueue;
+import com.taugames.freefall.objects.obstacles.general.RandomObstacleGenerator;
 
 public class Infinite implements Screen {
     private final Game game;

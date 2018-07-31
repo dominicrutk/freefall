@@ -1,4 +1,4 @@
-package com.taugames.freefall;
+package com.taugames.freefall.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

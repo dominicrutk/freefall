@@ -1,12 +1,12 @@
-package com.taugames.freefall.obstacles;
+package com.taugames.freefall.objects.obstacles.general;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
 import com.taugames.freefall.Game;
-import com.taugames.freefall.Model;
-import com.taugames.freefall.Parachutist;
+import com.taugames.freefall.objects.Model;
+import com.taugames.freefall.objects.Parachutist;
 
 public abstract class Obstacle {
     protected final Game game;

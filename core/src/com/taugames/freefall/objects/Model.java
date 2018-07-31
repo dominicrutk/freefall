@@ -1,4 +1,4 @@
-package com.taugames.freefall;
+package com.taugames.freefall.objects;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.EarClippingTriangulator;

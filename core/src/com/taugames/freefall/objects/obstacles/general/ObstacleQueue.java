@@ -1,10 +1,9 @@
-package com.taugames.freefall.obstacles.util;
+package com.taugames.freefall.objects.obstacles.general;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.taugames.freefall.Parachutist;
-import com.taugames.freefall.obstacles.Obstacle;
+import com.taugames.freefall.objects.Parachutist;
 
 public class ObstacleQueue {
     private RandomObstacleGenerator obstacleGenerator;

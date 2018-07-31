@@ -1,10 +1,12 @@
-package com.taugames.freefall;
+package com.taugames.freefall.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
+
+import com.taugames.freefall.Game;
 
 public class Parachutist {
     private Texture texture;
