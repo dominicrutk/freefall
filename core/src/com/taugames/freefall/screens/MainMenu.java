@@ -82,11 +82,15 @@ public class MainMenu implements Screen {
         stage.act();
         stage.draw();
 
-        game.getGlyphLayout().setText(font, "TEST");
+        String totalScore = "Total Score: " + Long.toString(game.getStats().getTotalScore());
+        String highScore = "High Score: " + Long.toString(game.getStats().getHighScore());
+
         SpriteBatch spriteBatch = game.getSpriteBatch();
         spriteBatch.begin();
-        font.draw(spriteBatch, "TEST", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, Gdx.graphics.getHeight() - 25);
-        font.draw(spriteBatch, "TEST", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, Gdx.graphics.getHeight() - 100);
+        game.getGlyphLayout().setText(font, totalScore);
+        font.draw(spriteBatch, totalScore, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, Gdx.graphics.getHeight() - 25);
+        game.getGlyphLayout().setText(font, highScore);
+        font.draw(spriteBatch, highScore, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, Gdx.graphics.getHeight() - 100);
         spriteBatch.end();
     }
 

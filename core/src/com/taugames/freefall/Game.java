@@ -8,11 +8,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.taugames.freefall.screens.MainMenu;
 
 import com.taugames.freefall.util.persistent.Settings;
+import com.taugames.freefall.util.persistent.Stats;
 
 public class Game extends com.badlogic.gdx.Game {
     private SpriteBatch spriteBatch;
     private AssetManager assetManager;
     private Settings settings;
+    private Stats stats;
     private GlyphLayout glyphLayout;
 
     @Override
@@ -20,6 +22,7 @@ public class Game extends com.badlogic.gdx.Game {
         spriteBatch = new SpriteBatch();
         assetManager = new AssetManager();
         settings = new Settings();
+        stats = new Stats();
         glyphLayout = new GlyphLayout();
         loadAssets();
         this.setScreen(new MainMenu(this));
@@ -67,6 +70,10 @@ public class Game extends com.badlogic.gdx.Game {
 
     public Settings getSettings() {
         return settings;
+    }
+
+    public Stats getStats() {
+        return stats;
     }
 
     public GlyphLayout getGlyphLayout() {
