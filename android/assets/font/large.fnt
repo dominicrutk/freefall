@@ -1,8 +1,8 @@
 info face="Press Start 2P" size=100 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=1,1,1,1 spacing=-2,-2
 common lineHeight=100 base=100 scaleW=512 scaleH=512 pages=3 packed=0
-page id=0 file="PressStart2P1.png"
-page id=1 file="PressStart2P2.png"
-page id=2 file="PressStart2P3.png"
+page id=0 file="large1.png"
+page id=1 file="large2.png"
+page id=2 file="large3.png"
 chars count=98
 char id=0       x=65   y=0    width=78   height=90   xoffset=11   yoffset=-1   xadvance=100  page=0    chnl=0 
 char id=10      x=65   y=0    width=78   height=90   xoffset=11   yoffset=-1   xadvance=100  page=0    chnl=0 

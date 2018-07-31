@@ -47,7 +47,7 @@ public class Infinite implements Screen {
 
         score = 0;
 
-        font = game.getAssetManager().get("font/PressStart2P.fnt", BitmapFont.class);
+        font = game.getAssetManager().get("font/large.fnt", BitmapFont.class);
 
         gameState = GameState.RUNNING;
     }
