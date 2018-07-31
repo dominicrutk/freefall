@@ -3,7 +3,6 @@ package com.taugames.freefall;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.taugames.freefall.input.InputListener;
@@ -48,7 +47,7 @@ public class Infinite implements Screen {
 
         score = 0;
 
-        font = game.getAssetManager().get("font/PressStart2P.ttf", BitmapFont.class);
+        font = game.getAssetManager().get("font/PressStart2P.fnt", BitmapFont.class);
 
         gameState = GameState.RUNNING;
     }
