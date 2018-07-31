@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.taugames.freefall.Game;
 import com.taugames.freefall.util.GameState;
 import com.taugames.freefall.objects.Parachutist;
-import com.taugames.freefall.util.Settings;
+import com.taugames.freefall.util.persistent.Settings;
 import com.taugames.freefall.input.InputListener;
 import com.taugames.freefall.input.InputState;
 import com.taugames.freefall.input.RotationInputListener;

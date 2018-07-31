@@ -6,18 +6,18 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.taugames.freefall.screens.MainMenu;
 
-import com.taugames.freefall.util.Settings;
+import com.taugames.freefall.util.persistent.Settings;
 
 public class Game extends com.badlogic.gdx.Game {
     private SpriteBatch spriteBatch;
     private AssetManager assetManager;
-    private com.taugames.freefall.util.Settings settings;
+    private Settings settings;
 
     @Override
     public void create() {
         spriteBatch = new SpriteBatch();
         assetManager = new AssetManager();
-        settings = new com.taugames.freefall.util.Settings();
+        settings = new Settings();
         loadAssets();
         this.setScreen(new MainMenu(this));
     }
