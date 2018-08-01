@@ -33,7 +33,7 @@ public class MainMenu implements Screen {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        Texture playButtonTexture = game.getAssetManager().get("img/buttons/playButton.png", Texture.class);
+        Texture playButtonTexture = game.getAssetManager().get("img/buttons/playButtonGreen.png", Texture.class);
         Button playButton = new Button(new TextureRegionDrawable(new TextureRegion(playButtonTexture)));
         playButton.setSize(playButtonSize, playButtonSize);
         playButton.setPosition((Gdx.graphics.getWidth() - playButtonSize) / 2f, (Gdx.graphics.getHeight() - playButtonSize) / 2f);

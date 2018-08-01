@@ -45,9 +45,12 @@ public class Game extends com.badlogic.gdx.Game {
         assetManager.load("font/large.fnt", BitmapFont.class);
 
         // Icons
-        assetManager.load("img/buttons/playButton.png", Texture.class);
+        assetManager.load("img/buttons/playButtonGreen.png", Texture.class);
         assetManager.load("img/buttons/settingsButton.png", Texture.class);
         assetManager.load("img/buttons/shopButton.png", Texture.class);
+        assetManager.load("img/buttons/playButtonGray.png", Texture.class);
+        assetManager.load("img/buttons/pauseButton.png", Texture.class);
+        assetManager.load("img/buttons/exitButton.png", Texture.class);
 
         // Parachutist
         assetManager.load("img/parachutist/parachutistAlive.png", Texture.class);
