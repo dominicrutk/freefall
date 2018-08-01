@@ -36,7 +36,7 @@ public class MainMenu implements Screen {
         playButton.setPosition((Gdx.graphics.getWidth() - playButtonSize) / 2f, (Gdx.graphics.getHeight() - playButtonSize) / 2f);
         playButton.addListener(new ChangeListener() {
             @Override
-            public void changed (ChangeEvent event, Actor actor) {
+            public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(new Infinite(game));
             }
         });
@@ -48,7 +48,7 @@ public class MainMenu implements Screen {
         settingsButton.setPosition(Gdx.graphics.getWidth() - menuButtonDistance - menuButtonSize, Gdx.graphics.getHeight() - menuButtonDistance - menuButtonSize);
         settingsButton.addListener(new ChangeListener() {
             @Override
-            public void changed (ChangeEvent event, Actor actor) {
+            public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("TODO", "Settings - Coming soon!");
             }
         });
@@ -60,7 +60,7 @@ public class MainMenu implements Screen {
         shoppingCartButton.setPosition(menuButtonDistance, Gdx.graphics.getHeight() - menuButtonDistance - menuButtonSize);
         shoppingCartButton.addListener(new ChangeListener() {
             @Override
-            public void changed (ChangeEvent event, Actor actor) {
+            public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("TODO", "Shop - Coming soon!");
             }
         });

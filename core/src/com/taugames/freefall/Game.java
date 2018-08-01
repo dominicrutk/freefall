@@ -41,8 +41,9 @@ public class Game extends com.badlogic.gdx.Game {
 
     private void loadAssets() {
         // Fonts
-        assetManager.load("font/large.fnt", BitmapFont.class);
         assetManager.load("font/small.fnt", BitmapFont.class);
+        assetManager.load("font/large.fnt", BitmapFont.class);
+        assetManager.load("font/xlarge.fnt", BitmapFont.class);
 
         // Icons
         assetManager.load("img/buttons/playButton.png", Texture.class);
