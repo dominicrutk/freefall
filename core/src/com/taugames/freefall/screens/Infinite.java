@@ -2,6 +2,7 @@ package com.taugames.freefall.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -57,6 +58,7 @@ public class Infinite implements Screen {
         obstacleQueue = new ObstacleQueue(obstacleGenerator, obstacleGap);
 
         fonts = new ArrayMap<Integer, BitmapFont>();
+        fonts.put(50, game.getAssetManager().get("font/small.fnt", BitmapFont.class));
         fonts.put(100, game.getAssetManager().get("font/large.fnt", BitmapFont.class));
 
         score = 0;
@@ -102,6 +104,23 @@ public class Infinite implements Screen {
         parachutist.draw(spriteBatch);
         obstacleQueue.draw(spriteBatch);
         fonts.get(100).draw(spriteBatch, Long.toString(score), 25, Gdx.graphics.getHeight() - 25);
+        if (gameState == GameState.DEAD) {
+            game.getGlyphLayout().setText(fonts.get(100), "Game Over");
+            fonts.get(100).draw(spriteBatch, "Game Over", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, Gdx.graphics.getHeight() / 2f + game.getGlyphLayout().height + 15);
+            float tapToContinueY = Gdx.graphics.getHeight() / 2f - 10;
+            if (score > game.getStats().getHighScore()) {
+                game.getGlyphLayout().setText(fonts.get(50), "New high score!");
+                fonts.get(50).setColor(Color.RED);
+                fonts.get(50).draw(spriteBatch, "New high score!", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, tapToContinueY);
+                fonts.get(50).setColor(Color.WHITE);
+                tapToContinueY -= 75;
+            }
+            game.getGlyphLayout().setText(fonts.get(50), "Tap to return to");
+            fonts.get(50).draw(spriteBatch, "Tap to return to", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, tapToContinueY);
+            tapToContinueY -= 75;
+            game.getGlyphLayout().setText(fonts.get(50), "the main menu...");
+            fonts.get(50).draw(spriteBatch, "the main menu...", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, tapToContinueY);
+        }
         spriteBatch.end();
     }
 
