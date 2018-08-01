@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.taugames.freefall.Game;
+import com.taugames.freefall.input.AnyTouchInputListener;
 import com.taugames.freefall.util.Colors;
 import com.taugames.freefall.util.GameState;
 import com.taugames.freefall.objects.Parachutist;
@@ -46,6 +47,8 @@ public class Infinite implements Screen {
     private float menuButtonDistance;
     private Stage runningStage;
     private Stage pausedStage;
+    private Stage deadStage;
+    private AnyTouchInputListener anyTouchInputListener;
 
     public Infinite(final Game game) {
         gameState = GameState.LOADING;
@@ -78,6 +81,8 @@ public class Infinite implements Screen {
         fonts.get(50).setColor(Colors.LIGHT_GRAY);
         fonts.put(100, game.getAssetManager().get("font/large.fnt", BitmapFont.class));
         fonts.get(100).setColor(Colors.LIGHT_GRAY);
+        fonts.put(150, game.getAssetManager().get("font/xlarge.fnt", BitmapFont.class));
+        fonts.get(150).setColor(Colors.LIGHT_GRAY);
 
         score = 0;
 
@@ -89,6 +94,7 @@ public class Infinite implements Screen {
 
         runningStage = new Stage(new ScreenViewport());
         pausedStage = new Stage(runningStage.getViewport());
+        deadStage = new Stage(runningStage.getViewport());
 
         Texture pauseButtonTexture = game.getAssetManager().get("img/buttons/pauseButton.png", Texture.class);
         Button pauseButton = new Button(new TextureRegionDrawable(new TextureRegion(pauseButtonTexture)));
@@ -129,6 +135,19 @@ public class Infinite implements Screen {
             }
         });
         pausedStage.addActor(playButton);
+
+        Button deadExitButton = new Button(new TextureRegionDrawable(new TextureRegion(exitButtonTexture)));
+        deadExitButton.setSize(menuButtonSize, menuButtonSize);
+        deadExitButton.setPosition(Gdx.graphics.getWidth() - menuButtonDistance - menuButtonSize, Gdx.graphics.getHeight() - menuButtonDistance - menuButtonSize);
+        deadExitButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new MainMenu(game));
+            }
+        });
+        deadStage.addActor(deadExitButton);
+
+        anyTouchInputListener = new AnyTouchInputListener();
 
         inputMultiplexer.addProcessor(runningStage);
         if (inputListener instanceof TouchInputListener) {
@@ -175,14 +194,19 @@ public class Infinite implements Screen {
                     stats.setHighScore(score);
                     highScore = true;
                 }
+                inputMultiplexer.addProcessor(0, deadStage);
+                inputMultiplexer.addProcessor(1, anyTouchInputListener);
             } else {
                 score += obstacleQueue.pointsToAdd(parachutist);
             }
         } else if (gameState == GameState.DEAD) {
             timeDead += Gdx.graphics.getDeltaTime();
-            if (timeDead >= 0.5 && Gdx.input.justTouched()) {
-                game.setScreen(new MainMenu(game));
+            if (timeDead >= 0.5 && anyTouchInputListener.isTouched()) {
+                game.setScreen(new Infinite(game));
             }
+
+            deadStage.act();
+            deadStage.draw();
         }
 
         SpriteBatch spriteBatch = game.getSpriteBatch();
@@ -203,12 +227,8 @@ public class Infinite implements Screen {
                 tapToContinueY -= 75;
             }
 
-            game.getGlyphLayout().setText(fonts.get(50), "Tap to return to");
-            fonts.get(50).draw(spriteBatch, "Tap to return to", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, tapToContinueY);
-            tapToContinueY -= 75;
-
-            game.getGlyphLayout().setText(fonts.get(50), "the main menu...");
-            fonts.get(50).draw(spriteBatch, "the main menu...", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, tapToContinueY);
+            game.getGlyphLayout().setText(fonts.get(50), "Tap to play again.");
+            fonts.get(50).draw(spriteBatch, "Tap to play again.", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, tapToContinueY);
         }
 
         if (gameState != GameState.DEAD) {
@@ -224,7 +244,7 @@ public class Infinite implements Screen {
         spriteBatch.end();
         spriteBatch.begin();
         if (gameState != GameState.PAUSED) {
-            fonts.get(100).draw(spriteBatch, Long.toString(score), menuButtonDistance, Gdx.graphics.getHeight() - menuButtonDistance);
+            fonts.get(150).draw(spriteBatch, Long.toString(score), menuButtonDistance, Gdx.graphics.getHeight() - 2 * menuButtonDistance);
         }
         spriteBatch.end();
     }
