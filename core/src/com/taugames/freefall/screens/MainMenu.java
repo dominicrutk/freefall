@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ArrayMap;
@@ -33,7 +33,7 @@ public class MainMenu implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         Texture playButtonTexture = game.getAssetManager().get("img/buttons/playButton.png", Texture.class);
-        ImageButton playButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(playButtonTexture)));
+        Button playButton = new Button(new TextureRegionDrawable(new TextureRegion(playButtonTexture)));
         playButton.setSize(playButtonSize, playButtonSize);
         playButton.setPosition((Gdx.graphics.getWidth() - playButtonSize) / 2f, (Gdx.graphics.getHeight() - playButtonSize) / 2f);
         playButton.addListener(new ChangeListener() {
@@ -45,9 +45,9 @@ public class MainMenu implements Screen {
         stage.addActor(playButton);
 
         Texture settingsButtonTexture = game.getAssetManager().get("img/buttons/settingsButton.png", Texture.class);
-        ImageButton settingsButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(settingsButtonTexture)));
+        Button settingsButton = new Button(new TextureRegionDrawable(new TextureRegion(settingsButtonTexture)));
         settingsButton.setSize(menuButtonSize, menuButtonSize);
-        settingsButton.setPosition(Gdx.graphics.getWidth() - menuButtonDistance - menuButtonSize, Gdx.graphics.getHeight() - menuButtonDistance - menuButtonSize);
+        settingsButton.setPosition(menuButtonDistance, Gdx.graphics.getHeight() - menuButtonDistance - menuButtonSize);
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -56,17 +56,17 @@ public class MainMenu implements Screen {
         });
         stage.addActor(settingsButton);
 
-        Texture shoppingCartButtonTexture = game.getAssetManager().get("img/buttons/shoppingCartButton.png", Texture.class);
-        ImageButton shoppingCartButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(shoppingCartButtonTexture)));
-        shoppingCartButton.setSize(menuButtonSize, menuButtonSize);
-        shoppingCartButton.setPosition(menuButtonDistance, Gdx.graphics.getHeight() - menuButtonDistance - menuButtonSize);
-        shoppingCartButton.addListener(new ChangeListener() {
+        Texture shopButtonTexture = game.getAssetManager().get("img/buttons/shopButton.png", Texture.class);
+        Button shopButton = new Button(new TextureRegionDrawable(new TextureRegion(shopButtonTexture)));
+        shopButton.setSize(menuButtonSize, menuButtonSize);
+        shopButton.setPosition(Gdx.graphics.getWidth() - menuButtonDistance - menuButtonSize, Gdx.graphics.getHeight() - menuButtonDistance - menuButtonSize);
+        shopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("TODO", "Shop - Coming soon!");
             }
         });
-        stage.addActor(shoppingCartButton);
+        stage.addActor(shopButton);
 
         fonts = new ArrayMap<Integer, BitmapFont>();
         fonts.put(50, game.getAssetManager().get("font/small.fnt", BitmapFont.class));
