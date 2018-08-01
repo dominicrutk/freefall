@@ -78,6 +78,8 @@ public class Infinite implements Screen {
         fonts.get(50).setColor(Colors.LIGHT_GRAY);
         fonts.put(100, game.getAssetManager().get("font/large.fnt", BitmapFont.class));
         fonts.get(100).setColor(Colors.LIGHT_GRAY);
+        fonts.put(150, game.getAssetManager().get("font/xlarge.fnt", BitmapFont.class));
+        fonts.get(150).setColor(Colors.LIGHT_GRAY);
 
         score = 0;
 
@@ -224,7 +226,7 @@ public class Infinite implements Screen {
         spriteBatch.end();
         spriteBatch.begin();
         if (gameState != GameState.PAUSED) {
-            fonts.get(100).draw(spriteBatch, Long.toString(score), menuButtonDistance, Gdx.graphics.getHeight() - menuButtonDistance);
+            fonts.get(150).draw(spriteBatch, Long.toString(score), menuButtonDistance, Gdx.graphics.getHeight() - 2 * menuButtonDistance);
         }
         spriteBatch.end();
     }
