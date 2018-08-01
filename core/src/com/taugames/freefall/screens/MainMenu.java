@@ -16,19 +16,25 @@ import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.taugames.freefall.Game;
 import com.taugames.freefall.util.Colors;
+import com.taugames.freefall.util.persistent.Settings;
 
 public class MainMenu implements Screen {
     private final Game game;
+    private Settings settings;
     private float playButtonSize;
+    private float menuButtonSize;
+    private float menuButtonDistance;
     private Stage stage;
     private ArrayMap<Integer, BitmapFont> fonts;
 
     public MainMenu(final Game game) {
         this.game = game;
 
+        settings = new Settings();
+
         playButtonSize = Gdx.graphics.getWidth() / 4f;
-        float menuButtonSize = Gdx.graphics.getWidth() / 8f;
-        float menuButtonDistance = Gdx.graphics.getWidth() / 48f;
+        menuButtonSize = Gdx.graphics.getWidth() / 8f;
+        menuButtonDistance = Gdx.graphics.getWidth() / 48f;
 
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -52,7 +58,15 @@ public class MainMenu implements Screen {
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.log("TODO", "Settings - Coming soon!");
+                // Give the user some sort of message for each possible result
+                Settings.InputType inputType = settings.getInputType();
+                if (inputType == Settings.InputType.TOUCH && settings.rotationInputAvailable()) {
+                    settings.setInputType(Settings.InputType.ROTATION);
+                } else if (inputType == Settings.InputType.TOUCH) {
+                } else {
+                    settings.setInputType(Settings.InputType.TOUCH);
+                }
+
             }
         });
         stage.addActor(settingsButton);
@@ -64,7 +78,7 @@ public class MainMenu implements Screen {
         shopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.log("TODO", "Shop - Coming soon!");
+                // Give the user some sort of message
             }
         });
         stage.addActor(shopButton);
