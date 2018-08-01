@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.taugames.freefall.Game;
+import com.taugames.freefall.util.Colors;
 import com.taugames.freefall.util.GameState;
 import com.taugames.freefall.objects.Parachutist;
 import com.taugames.freefall.util.persistent.Settings;
@@ -59,7 +60,9 @@ public class Infinite implements Screen {
 
         fonts = new ArrayMap<Integer, BitmapFont>();
         fonts.put(50, game.getAssetManager().get("font/small.fnt", BitmapFont.class));
+        fonts.get(50).setColor(Colors.LIGHT_GRAY);
         fonts.put(100, game.getAssetManager().get("font/large.fnt", BitmapFont.class));
+        fonts.get(100).setColor(Colors.LIGHT_GRAY);
 
         score = 0;
 
@@ -110,9 +113,9 @@ public class Infinite implements Screen {
             float tapToContinueY = Gdx.graphics.getHeight() / 2f - 10;
             if (score > game.getStats().getHighScore()) {
                 game.getGlyphLayout().setText(fonts.get(50), "New high score!");
-                fonts.get(50).setColor(Color.RED);
+                fonts.get(50).setColor(Colors.RED);
                 fonts.get(50).draw(spriteBatch, "New high score!", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, tapToContinueY);
-                fonts.get(50).setColor(Color.WHITE);
+                fonts.get(50).setColor(Colors.LIGHT_GRAY);
                 tapToContinueY -= 75;
             }
             game.getGlyphLayout().setText(fonts.get(50), "Tap to return to");

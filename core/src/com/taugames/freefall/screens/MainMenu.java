@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.taugames.freefall.Game;
+import com.taugames.freefall.util.Colors;
 
 public class MainMenu implements Screen {
     private final Game game;
@@ -70,7 +71,9 @@ public class MainMenu implements Screen {
 
         fonts = new ArrayMap<Integer, BitmapFont>();
         fonts.put(50, game.getAssetManager().get("font/small.fnt", BitmapFont.class));
+        fonts.get(50).setColor(Colors.LIGHT_GRAY);
         fonts.put(100, game.getAssetManager().get("font/large.fnt", BitmapFont.class));
+        fonts.get(100).setColor(Colors.LIGHT_GRAY);
     }
 
     @Override
