@@ -50,7 +50,8 @@ public class Game extends com.badlogic.gdx.Game {
         assetManager.load("img/buttons/shopButton.png", Texture.class);
 
         // Parachutist
-        assetManager.load("img/parachutist.png", Texture.class);
+        assetManager.load("img/parachutist/parachutistAlive.png", Texture.class);
+        assetManager.load("img/parachutist/parachutistDead.png", Texture.class);
 
         // Lasers
         assetManager.load("img/lasers/laserBody.png", Texture.class);

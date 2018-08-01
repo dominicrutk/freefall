@@ -25,7 +25,7 @@ public class Parachutist {
 
     public Parachutist(Game game) {
         this(
-                game.getAssetManager().get("img/parachutist.png", Texture.class),
+                game.getAssetManager().get("img/parachutist/parachutistAlive.png", Texture.class),
                 7 * Gdx.graphics.getWidth() / 16f,
                 119 * Gdx.graphics.getWidth() / 144f,
                 Gdx.graphics.getWidth() / 8f,
@@ -112,6 +112,10 @@ public class Parachutist {
         float difference = y - this.y;
         this.y = y;
         model.changeY(difference);
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
     }
 
     public void setWidth(float width) {

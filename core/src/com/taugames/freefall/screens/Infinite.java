@@ -3,6 +3,7 @@ package com.taugames.freefall.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ArrayMap;
@@ -83,11 +84,14 @@ public class Infinite implements Screen {
             } else {
                 parachutist.resetVelocity();
             }
+        }
 
-            obstacleQueue.updateObstacles();
+        obstacleQueue.updateObstacles();
 
+        if (gameState != GameState.DEAD) {
             if (obstacleQueue.kills(parachutist)) {
                 gameState = GameState.DEAD;
+                parachutist.setTexture(game.getAssetManager().get("img/parachutist/parachutistDead.png", Texture.class));
             } else {
                 score += obstacleQueue.pointsToAdd(parachutist);
             }
@@ -95,8 +99,8 @@ public class Infinite implements Screen {
 
         SpriteBatch spriteBatch = game.getSpriteBatch();
         spriteBatch.begin();
-        obstacleQueue.draw(spriteBatch);
         parachutist.draw(spriteBatch);
+        obstacleQueue.draw(spriteBatch);
         fonts.get(100).draw(spriteBatch, Long.toString(score), 25, Gdx.graphics.getHeight() - 25);
         spriteBatch.end();
     }
