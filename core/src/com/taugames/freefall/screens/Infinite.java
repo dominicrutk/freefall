@@ -107,9 +107,11 @@ public class Infinite implements Screen {
         parachutist.draw(spriteBatch);
         obstacleQueue.draw(spriteBatch);
         fonts.get(100).draw(spriteBatch, Long.toString(score), 25, Gdx.graphics.getHeight() - 25);
+
         if (gameState == GameState.DEAD) {
             game.getGlyphLayout().setText(fonts.get(100), "Game Over");
             fonts.get(100).draw(spriteBatch, "Game Over", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, Gdx.graphics.getHeight() / 2f + game.getGlyphLayout().height + 15);
+
             float tapToContinueY = Gdx.graphics.getHeight() / 2f - 10;
             if (score > game.getStats().getHighScore()) {
                 game.getGlyphLayout().setText(fonts.get(50), "New high score!");
@@ -118,12 +120,15 @@ public class Infinite implements Screen {
                 fonts.get(50).setColor(Colors.LIGHT_GRAY);
                 tapToContinueY -= 75;
             }
+
             game.getGlyphLayout().setText(fonts.get(50), "Tap to return to");
             fonts.get(50).draw(spriteBatch, "Tap to return to", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, tapToContinueY);
             tapToContinueY -= 75;
+            
             game.getGlyphLayout().setText(fonts.get(50), "the main menu...");
             fonts.get(50).draw(spriteBatch, "the main menu...", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, tapToContinueY);
         }
+
         spriteBatch.end();
     }
 
