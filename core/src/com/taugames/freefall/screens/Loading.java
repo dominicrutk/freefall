@@ -21,7 +21,7 @@ public class Loading implements Screen {
     public Loading(final Game game) {
         this.game = game;
         assetManager = game.getAssetManager();
-        shapeRenderer = new ShapeRenderer();
+        shapeRenderer = game.getShapeRenderer();
         shapeRenderer.setColor(Colors.WHITE);
         x = Gdx.graphics.getWidth() / 4f;
         y = Gdx.graphics.getHeight() / 2f - 75;

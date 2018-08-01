@@ -5,25 +5,27 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.taugames.freefall.screens.Loading;
-
 import com.taugames.freefall.util.persistent.Settings;
 import com.taugames.freefall.util.persistent.Stats;
 
 public class Game extends com.badlogic.gdx.Game {
-    private SpriteBatch spriteBatch;
     private AssetManager assetManager;
     private Settings settings;
     private Stats stats;
+    private SpriteBatch spriteBatch;
     private GlyphLayout glyphLayout;
+    private ShapeRenderer shapeRenderer;
 
     @Override
     public void create() {
-        spriteBatch = new SpriteBatch();
         assetManager = new AssetManager();
         settings = new Settings();
         stats = new Stats();
+        spriteBatch = new SpriteBatch();
         glyphLayout = new GlyphLayout();
+        shapeRenderer = new ShapeRenderer();
         queueAssetsToLoad();
         this.setScreen(new Loading(this));
     }
@@ -62,10 +64,6 @@ public class Game extends com.badlogic.gdx.Game {
         assetManager.load("img/lasers/laserEndRight.png", Texture.class);
     }
 
-    public SpriteBatch getSpriteBatch() {
-        return spriteBatch;
-    }
-
     public AssetManager getAssetManager() {
         return assetManager;
     }
@@ -78,7 +76,15 @@ public class Game extends com.badlogic.gdx.Game {
         return stats;
     }
 
+    public SpriteBatch getSpriteBatch() {
+        return spriteBatch;
+    }
+
     public GlyphLayout getGlyphLayout() {
         return glyphLayout;
+    }
+
+    public ShapeRenderer getShapeRenderer() {
+        return shapeRenderer;
     }
 }
