@@ -188,7 +188,6 @@ public class Infinite implements Screen {
         spriteBatch.begin();
         parachutist.draw(spriteBatch);
         obstacleQueue.draw(spriteBatch);
-        fonts.get(100).draw(spriteBatch, Long.toString(score), 25, Gdx.graphics.getHeight() - 25);
 
         if (gameState == GameState.DEAD) {
             game.getGlyphLayout().setText(fonts.get(100), "Game Over");
@@ -221,6 +220,11 @@ public class Infinite implements Screen {
             }
         }
 
+        spriteBatch.end();
+        spriteBatch.begin();
+        if (gameState != GameState.PAUSED) {
+            fonts.get(100).draw(spriteBatch, Long.toString(score), 25, Gdx.graphics.getHeight() - 25);
+        }
         spriteBatch.end();
     }
 
