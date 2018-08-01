@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.taugames.freefall.screens.MainMenu;
+import com.taugames.freefall.screens.Loading;
 
 import com.taugames.freefall.util.persistent.Settings;
 import com.taugames.freefall.util.persistent.Stats;
@@ -24,8 +24,8 @@ public class Game extends com.badlogic.gdx.Game {
         settings = new Settings();
         stats = new Stats();
         glyphLayout = new GlyphLayout();
-        loadAssets();
-        this.setScreen(new MainMenu(this));
+        queueAssetsToLoad();
+        this.setScreen(new Loading(this));
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Game extends com.badlogic.gdx.Game {
         this.getScreen().dispose();
     }
 
-    private void loadAssets() {
+    private void queueAssetsToLoad() {
         // Fonts
         assetManager.load("font/small.fnt", BitmapFont.class);
         assetManager.load("font/large.fnt", BitmapFont.class);
@@ -57,8 +57,6 @@ public class Game extends com.badlogic.gdx.Game {
         assetManager.load("img/lasers/laserBody.png", Texture.class);
         assetManager.load("img/lasers/laserEndLeft.png", Texture.class);
         assetManager.load("img/lasers/laserEndRight.png", Texture.class);
-
-        assetManager.finishLoading();
     }
 
     public SpriteBatch getSpriteBatch() {
