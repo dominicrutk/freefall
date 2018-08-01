@@ -83,7 +83,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(135f / 255, 206f / 255, 250f / 255, 1f);
+        Gdx.gl.glClearColor(Colors.SKY_BLUE.r, Colors.SKY_BLUE.g, Colors.SKY_BLUE.b, Colors.SKY_BLUE.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act();

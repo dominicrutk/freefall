@@ -1,13 +1,11 @@
 package com.taugames.freefall;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.taugames.freefall.screens.Loading;
-import com.taugames.freefall.screens.MainMenu;
 
 import com.taugames.freefall.util.persistent.Settings;
 import com.taugames.freefall.util.persistent.Stats;
