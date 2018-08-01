@@ -27,8 +27,8 @@ public class MainMenu implements Screen {
         this.game = game;
 
         playButtonSize = Gdx.graphics.getWidth() / 4f;
-        float menuButtonSize = Gdx.graphics.getWidth() / 10f;
-        float menuButtonDistance = Gdx.graphics.getWidth() / 72f;
+        float menuButtonSize = Gdx.graphics.getWidth() / 8f;
+        float menuButtonDistance = Gdx.graphics.getWidth() / 48f;
 
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
