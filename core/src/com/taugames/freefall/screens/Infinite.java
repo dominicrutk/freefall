@@ -32,6 +32,7 @@ public class Infinite implements Screen {
     private ArrayMap<Integer, BitmapFont> fonts;
     private long score;
     private float timeDead;
+    private boolean highScore;
 
     public Infinite(Game game) {
         gameState = GameState.LOADING;
@@ -66,6 +67,8 @@ public class Infinite implements Screen {
 
         score = 0;
 
+        highScore = false;
+
         gameState = GameState.RUNNING;
     }
 
@@ -98,6 +101,11 @@ public class Infinite implements Screen {
                 gameState = GameState.DEAD;
                 parachutist.setTexture(game.getAssetManager().get("img/parachutist/parachutistDead.png", Texture.class));
                 timeDead = 0;
+                game.getStats().setTotalScore(game.getStats().getTotalScore() + score);
+                if (score > game.getStats().getHighScore()) {
+                    game.getStats().setHighScore(score);
+                    highScore = true;
+                }
             } else {
                 score += obstacleQueue.pointsToAdd(parachutist);
             }
@@ -119,7 +127,7 @@ public class Infinite implements Screen {
             fonts.get(100).draw(spriteBatch, "Game Over", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, Gdx.graphics.getHeight() / 2f + game.getGlyphLayout().height + 15);
 
             float tapToContinueY = Gdx.graphics.getHeight() / 2f - 10;
-            if (score > game.getStats().getHighScore()) {
+            if (highScore) {
                 game.getGlyphLayout().setText(fonts.get(50), "New high score!");
                 fonts.get(50).setColor(((int) timeDead & 1) == 0 ? Colors.RED : Colors.WHITE);
                 fonts.get(50).draw(spriteBatch, "New high score!", Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, tapToContinueY);
