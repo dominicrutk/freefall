@@ -12,18 +12,20 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.taugames.freefall.Game;
 
 public class MainMenu implements Screen {
     private final Game game;
+    private float playButtonSize;
     private Stage stage;
-    private BitmapFont font;
+    private ArrayMap<Integer, BitmapFont> fonts;
 
     public MainMenu(final Game game) {
         this.game = game;
 
-        float playButtonSize = Gdx.graphics.getWidth() / 4f;
+        playButtonSize = Gdx.graphics.getWidth() / 4f;
         float menuButtonSize = Gdx.graphics.getWidth() / 10f;
         float menuButtonDistance = Gdx.graphics.getWidth() / 72f;
 
@@ -66,7 +68,9 @@ public class MainMenu implements Screen {
         });
         stage.addActor(shoppingCartButton);
 
-        font = game.getAssetManager().get("font/small.fnt", BitmapFont.class);
+        fonts = new ArrayMap<Integer, BitmapFont>();
+        fonts.put(50, game.getAssetManager().get("font/small.fnt", BitmapFont.class));
+        fonts.put(100, game.getAssetManager().get("font/large.fnt", BitmapFont.class));
     }
 
     @Override
@@ -82,15 +86,18 @@ public class MainMenu implements Screen {
         stage.act();
         stage.draw();
 
+        String freefall = "FreeFall";
         String totalScore = "Total Score: " + Long.toString(game.getStats().getTotalScore());
         String highScore = "High Score: " + Long.toString(game.getStats().getHighScore());
 
         SpriteBatch spriteBatch = game.getSpriteBatch();
         spriteBatch.begin();
-        game.getGlyphLayout().setText(font, totalScore);
-        font.draw(spriteBatch, totalScore, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, Gdx.graphics.getHeight() - 25);
-        game.getGlyphLayout().setText(font, highScore);
-        font.draw(spriteBatch, highScore, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, Gdx.graphics.getHeight() - 100);
+        game.getGlyphLayout().setText(fonts.get(100), freefall);
+        fonts.get(100).draw(spriteBatch, freefall, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, stage.getActors().get(0).getY() + playButtonSize + 125);
+        game.getGlyphLayout().setText(fonts.get(50), totalScore);
+        fonts.get(50).draw(spriteBatch, totalScore, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, stage.getActors().get(0).getY() - 50);
+        game.getGlyphLayout().setText(fonts.get(50), highScore);
+        fonts.get(50).draw(spriteBatch, highScore, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, stage.getActors().get(0).getY() - 125);
         spriteBatch.end();
     }
 
