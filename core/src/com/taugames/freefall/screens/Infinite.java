@@ -101,9 +101,9 @@ public class Infinite implements Screen {
                 gameState = GameState.DEAD;
                 parachutist.setTexture(game.getAssetManager().get("img/parachutist/parachutistDead.png", Texture.class));
                 timeDead = 0;
-                game.getStats().setTotalScore(game.getStats().getTotalScore() + score);
-                if (score > game.getStats().getHighScore()) {
-                    game.getStats().setHighScore(score);
+                stats.setTotalScore(stats.getTotalScore() + score);
+                if (score > stats.getHighScore()) {
+                    stats.setHighScore(score);
                     highScore = true;
                 }
             } else {
