@@ -100,7 +100,7 @@ public class MainMenu implements Screen {
         shopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                notification = new Notification("Shop - coming soon...", Colors.LIGHT_GRAY);
+                notification = new Notification("Shop coming soon.", Colors.LIGHT_GRAY);
                 notificationTime = 0;
             }
         });
@@ -127,7 +127,7 @@ public class MainMenu implements Screen {
         stage.draw();
 
         if (notification != null) {
-            if (notificationTime <= 3) {
+            if (notificationTime <= 2) {
                 notificationTime += Gdx.graphics.getDeltaTime();
             } else {
                 notification = null;
