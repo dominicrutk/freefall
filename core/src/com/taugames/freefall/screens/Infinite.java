@@ -43,6 +43,7 @@ public class Infinite implements Screen {
     private float timeDead;
     private boolean highScore;
 
+    private float menuButtonDistance;
     private Stage runningStage;
     private Stage pausedStage;
 
@@ -84,7 +85,7 @@ public class Infinite implements Screen {
 
         // Pause mechanics
         float menuButtonSize = Gdx.graphics.getWidth() / 8f;
-        float menuButtonDistance = Gdx.graphics.getWidth() / 48f;
+        menuButtonDistance = Gdx.graphics.getWidth() / 48f;
 
         runningStage = new Stage(new ScreenViewport());
         pausedStage = new Stage(runningStage.getViewport());
@@ -223,7 +224,7 @@ public class Infinite implements Screen {
         spriteBatch.end();
         spriteBatch.begin();
         if (gameState != GameState.PAUSED) {
-            fonts.get(100).draw(spriteBatch, Long.toString(score), 25, Gdx.graphics.getHeight() - 25);
+            fonts.get(100).draw(spriteBatch, Long.toString(score), menuButtonDistance, Gdx.graphics.getHeight() - menuButtonDistance);
         }
         spriteBatch.end();
     }
