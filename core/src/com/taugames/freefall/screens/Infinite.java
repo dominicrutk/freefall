@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ArrayMap;
 import com.taugames.freefall.Game;
 import com.taugames.freefall.util.GameState;
 import com.taugames.freefall.objects.Parachutist;
@@ -15,23 +16,28 @@ import com.taugames.freefall.input.RotationInputListener;
 import com.taugames.freefall.input.TouchInputListener;
 import com.taugames.freefall.objects.obstacles.general.ObstacleQueue;
 import com.taugames.freefall.objects.obstacles.general.RandomObstacleGenerator;
+import com.taugames.freefall.util.persistent.Stats;
 
 public class Infinite implements Screen {
     private final Game game;
-    private Settings settings;
-    private InputListener inputListener;
     private GameState gameState;
+    private Settings settings;
+    private Stats stats;
+    private InputListener inputListener;
     private Parachutist parachutist;
     private RandomObstacleGenerator obstacleGenerator;
     private ObstacleQueue obstacleQueue;
+    private ArrayMap<Integer, BitmapFont> fonts;
     private long score;
-    private BitmapFont font;
 
     public Infinite(Game game) {
         gameState = GameState.LOADING;
+
         this.game = game;
 
         settings = game.getSettings();
+
+        stats = game.getStats();
 
         Settings.InputType inputType = settings.getInputType();
         if (inputType == Settings.InputType.ROTATION && settings.rotationInputAvailable()) {
@@ -43,15 +49,16 @@ public class Infinite implements Screen {
 
         parachutist = new Parachutist(game);
 
-        float obstacleGap = 5 * Gdx.graphics.getWidth() / 11f;
         float obstacleVelocity = Gdx.graphics.getWidth() / 180f;
         obstacleGenerator = new RandomObstacleGenerator(game, obstacleVelocity);
 
+        float obstacleGap = 5 * Gdx.graphics.getWidth() / 11f;
         obstacleQueue = new ObstacleQueue(obstacleGenerator, obstacleGap);
 
-        score = 0;
+        fonts = new ArrayMap<Integer, BitmapFont>();
+        fonts.put(100, game.getAssetManager().get("font/large.fnt", BitmapFont.class));
 
-        font = game.getAssetManager().get("font/large.fnt", BitmapFont.class);
+        score = 0;
 
         gameState = GameState.RUNNING;
     }
@@ -66,7 +73,7 @@ public class Infinite implements Screen {
         Gdx.gl.glClearColor(135f / 255, 206f / 255, 250f / 255, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (gameState != GameState.DEAD && gameState != GameState.COMPLETED) {
+        if (gameState != GameState.DEAD) {
             inputListener.updateInputState();
             InputState inputState = inputListener.getInputState();
             if (inputState == InputState.LEFT) {
@@ -81,16 +88,16 @@ public class Infinite implements Screen {
 
             if (obstacleQueue.kills(parachutist)) {
                 gameState = GameState.DEAD;
+            } else {
+                score += obstacleQueue.pointsToAdd(parachutist);
             }
-
-            score += obstacleQueue.pointsToAdd(parachutist);
         }
 
         SpriteBatch spriteBatch = game.getSpriteBatch();
         spriteBatch.begin();
         obstacleQueue.draw(spriteBatch);
         parachutist.draw(spriteBatch);
-        font.draw(spriteBatch, Long.toString(score), 25, Gdx.graphics.getHeight() - 25);
+        fonts.get(100).draw(spriteBatch, Long.toString(score), 25, Gdx.graphics.getHeight() - 25);
         spriteBatch.end();
     }
 
