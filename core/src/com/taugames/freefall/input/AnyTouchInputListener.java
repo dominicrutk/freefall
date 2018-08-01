@@ -17,7 +17,7 @@ public class AnyTouchInputListener extends InputAdapter {
 
     @Override
     public boolean touchDragged (int screenX, int screenY, int pointer) {
-        touched = true;
+        touched = false;
         return true;
     }
 

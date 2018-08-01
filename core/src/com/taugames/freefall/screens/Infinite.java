@@ -201,7 +201,7 @@ public class Infinite implements Screen {
             }
         } else if (gameState == GameState.DEAD) {
             timeDead += Gdx.graphics.getDeltaTime();
-            if (timeDead >= 0.5 && anyTouchInputListener.isTouched()) {
+            if (timeDead >= 0.75 && anyTouchInputListener.isTouched()) {
                 game.setScreen(new Infinite(game));
             }
 
