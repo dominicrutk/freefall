@@ -2,6 +2,7 @@ package com.taugames.freefall.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -26,6 +27,25 @@ public class MainMenu implements Screen {
     private float menuButtonDistance;
     private Stage stage;
     private ArrayMap<Integer, BitmapFont> fonts;
+    private Notification notification;
+    private float notificationTime;
+    private static class Notification {
+        private String message;
+        private Color color;
+
+        public Notification(String message, Color color) {
+            this.message = message;
+            this.color = color;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public Color getColor() {
+            return color;
+        }
+    }
 
     public MainMenu(final Game game) {
         this.game = game;
@@ -58,15 +78,17 @@ public class MainMenu implements Screen {
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // Give the user some sort of message for each possible result
                 Settings.InputType inputType = settings.getInputType();
                 if (inputType == Settings.InputType.TOUCH && settings.rotationInputAvailable()) {
                     settings.setInputType(Settings.InputType.ROTATION);
+                    notification = new Notification("Rotation input\nenabled.", Colors.LIGHT_GRAY);
                 } else if (inputType == Settings.InputType.TOUCH) {
+                    notification = new Notification("Rotation input is\nnot available.", Colors.RED);
                 } else {
                     settings.setInputType(Settings.InputType.TOUCH);
+                    notification = new Notification("Touch input enabled.", Colors.LIGHT_GRAY);
                 }
-
+                notificationTime = 0;
             }
         });
         stage.addActor(settingsButton);
@@ -78,7 +100,8 @@ public class MainMenu implements Screen {
         shopButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // Give the user some sort of message
+                notification = new Notification("Shop - coming soon...", Colors.LIGHT_GRAY);
+                notificationTime = 0;
             }
         });
         stage.addActor(shopButton);
@@ -103,6 +126,17 @@ public class MainMenu implements Screen {
         stage.act();
         stage.draw();
 
+        if (notification != null) {
+            if (notificationTime <= 3) {
+                notificationTime += Gdx.graphics.getDeltaTime();
+            } else {
+                notification = null;
+                notificationTime = 0;
+            }
+        } else {
+            notificationTime = 0;
+        }
+
         String freefall = "Freefall";
         String totalScore = "Total Score: " + Long.toString(game.getStats().getTotalScore());
         String highScore = "High Score: " + Long.toString(game.getStats().getHighScore());
@@ -115,6 +149,16 @@ public class MainMenu implements Screen {
         fonts.get(50).draw(spriteBatch, totalScore, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, stage.getActors().get(0).getY() - 75);
         game.getGlyphLayout().setText(fonts.get(50), highScore);
         fonts.get(50).draw(spriteBatch, highScore, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, stage.getActors().get(0).getY() - 150);
+        if (notification != null) {
+            fonts.get(50).setColor(notification.getColor());
+            float y = Gdx.graphics.getHeight() - menuButtonDistance - menuButtonSize - 50;
+            for (String line : notification.getMessage().split("\n")) {
+                game.getGlyphLayout().setText(fonts.get(50), line);
+                fonts.get(50).draw(spriteBatch, line, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, y);
+                y -= 75;
+            }
+            fonts.get(50).setColor(Colors.LIGHT_GRAY);
+        }
         spriteBatch.end();
     }
 
