@@ -89,18 +89,18 @@ public class MainMenu implements Screen {
         stage.act();
         stage.draw();
 
-        String freefall = "FreeFall";
+        String freefall = "Freefall";
         String totalScore = "Total Score: " + Long.toString(game.getStats().getTotalScore());
         String highScore = "High Score: " + Long.toString(game.getStats().getHighScore());
 
         SpriteBatch spriteBatch = game.getSpriteBatch();
         spriteBatch.begin();
         game.getGlyphLayout().setText(fonts.get(100), freefall);
-        fonts.get(100).draw(spriteBatch, freefall, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, stage.getActors().get(0).getY() + playButtonSize + 125);
+        fonts.get(100).draw(spriteBatch, freefall, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, stage.getActors().get(0).getY() + playButtonSize + 150);
         game.getGlyphLayout().setText(fonts.get(50), totalScore);
-        fonts.get(50).draw(spriteBatch, totalScore, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, stage.getActors().get(0).getY() - 50);
+        fonts.get(50).draw(spriteBatch, totalScore, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, stage.getActors().get(0).getY() - 75);
         game.getGlyphLayout().setText(fonts.get(50), highScore);
-        fonts.get(50).draw(spriteBatch, highScore, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, stage.getActors().get(0).getY() - 125);
+        fonts.get(50).draw(spriteBatch, highScore, Gdx.graphics.getWidth() / 2f - game.getGlyphLayout().width / 2, stage.getActors().get(0).getY() - 150);
         spriteBatch.end();
     }
 
