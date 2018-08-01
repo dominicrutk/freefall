@@ -29,7 +29,7 @@ public class TouchInputListener extends InputListener implements InputProcessor 
             return false;
         }
         inputState = screenX < Gdx.graphics.getWidth() / 2f ? InputState.LEFT : InputState.RIGHT;
-        return true;
+        return false;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class TouchInputListener extends InputListener implements InputProcessor 
             return false;
         }
         inputState = screenX < Gdx.graphics.getWidth() / 2f ? InputState.LEFT : InputState.RIGHT;
-        return true;
+        return false;
     }
 
     @Override
@@ -47,6 +47,6 @@ public class TouchInputListener extends InputListener implements InputProcessor 
             return false;
         }
         inputState = InputState.NONE;
-        return true;
+        return false;
     }
 }

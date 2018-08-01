@@ -1,5 +1,5 @@
 package com.taugames.freefall.util;
 
 public enum GameState {
-    LOADING, WAITING, RUNNING, DEAD, COMPLETED
+    LOADING, WAITING, RUNNING, PAUSED, DEAD, COMPLETED
 }
