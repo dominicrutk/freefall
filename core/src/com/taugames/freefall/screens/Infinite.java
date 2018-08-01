@@ -103,6 +103,9 @@ public class Infinite implements Screen {
             }
         } else {
             timeDead += Gdx.graphics.getDeltaTime();
+            if (timeDead >= 0.5 && Gdx.input.justTouched()) {
+                game.setScreen(new MainMenu(game));
+            }
         }
 
         SpriteBatch spriteBatch = game.getSpriteBatch();
